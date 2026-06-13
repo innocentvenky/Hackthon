@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Registration Form</h2>
+          {% if messages %}
+        {% for message in messages %}
+            <p style="color: rgb(128, 6, 0);">
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Full Name" required>
+
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="education" placeholder="education" required>
+            <input type="number" name="phone" placeholder="number" required>
+            <input type="date" name="date_of_birth" placeholder="DOB" required>
+            <button type="submit">Register</button>
+            
+        </form>
+    </div>
+
+</body>
+</html>
