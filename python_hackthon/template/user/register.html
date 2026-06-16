@@ -1,33 +1,109 @@
 <!DOCTYPE html>
-<html>
+{% load static %}
+<html lang="en">
 <head>
-    <title>Registration Form</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css\user\register.css' %}">
+
 </head>
 <body>
 
-    <div class="container">
-        <h2>Registration Form</h2>
-          {% if messages %}
+<div class="container">
+
+    <div class="title">
+         <img src="{% static 'images/Vjiss.png' %}" class="logo-img" alt="VJISS Logo">
+        <h2>Hackathon Registration</h2>
+        <p>Fill in your details to create an account</p>
+    </div>
+
+    {% if messages %}
         {% for message in messages %}
-            <p style="color: rgb(128, 6, 0);">
+            <div class="message">
                 {{ message }}
-            </p>
+            </div>
         {% endfor %}
     {% endif %}
 
-        <form method="POST">
-            {% csrf_token %}
-            <input type="text" name="name" placeholder="Full Name" required>
+    <form method="POST">
+        {% csrf_token %}
 
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="text" name="education" placeholder="education" required>
-            <input type="number" name="phone" placeholder="number" required>
-            <input type="date" name="date_of_birth" placeholder="DOB" required>
-            <button type="submit">Register</button>
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="example@gmail.com" required>
+        </div>
+
+        <div class="input-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="9876543210" required>
+        </div>
+
+        <div class="input-group">
+            <label>Date of Birth</label>
+            <input type="date" name="date_of_birth" required>
+        </div>
+
+        <div class="input-group">
+            <label>Gender</label>
+            <select name="gender">
+                <option value="">Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+         <div class="input-group ">
+            <label>Education</label>
+            <select name="Education">
+                <option value="">Select Education</option>
+                <option>B.Tech</option>
+                <option>M.Tech</option>
+                <option>PhD</option>
+            </select>
+            </div>
+
+             <div class="input-group ">
+            <label>College</label>
+            <select name="College">
+                <option value="">Select College</option>
+                <option>VISWAM</option>
+                <option>MITS</option>
+                <option>ADITYA</option>
+                <option>GVICS</option>
+            </select>
+            </div>
+
             
-        </form>
-    </div>
+            <div class="input-group">
+            <label>Branch</label>
+            <select name="Branch">
+                <option value="">Select Branch</option>
+                <option>CSE</option>
+                <option>ECE</option>
+                <option>EEE</option>
+                <option>CIVIL</option>
+                <option>MECHANICAL</option>
+            </select>
+            </div>
+       
+
+    
+        <button type="submit" class="btn">
+            Register Now
+        </button>
+
+    </form>
+
+</div>
 
 </body>
 </html>
