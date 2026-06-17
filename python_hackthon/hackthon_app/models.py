@@ -29,6 +29,7 @@ class Test(models.Model):
         return f"Test from {self.start_time} to {self.end_time}"
 
 class MCQ(models.Model):
+    mcq_id=models.AutoField(primary_key=True)
     question=models.TextField()
     option1=models.CharField(max_length=200)
     option2=models.CharField(max_length=200)
@@ -39,8 +40,19 @@ class MCQ(models.Model):
         return self.question
 
 class CodingTest(models.Model):
+    coding_id=models.AutoField(primary_key=True)
     question=models.TextField()
     sample_input=models.TextField()
     sample_output=models.TextField()
     def __str__(self):
         return self.question
+
+
+class Marks(models.Model):
+    id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
+    email=models.ForeignKey(User, on_delete=models.CASCADE, related_name='marks_user')
+    mcq_marks=models.IntegerField(default=0)
+    coding_marks=models.IntegerField(default=0)
+    total_marks=models.IntegerField(default=0)
+    def __str__(self):
+        return f"Marks for {self.email.name}: MCQ: {self.mcq_marks}, Coding: {self.coding_marks}, Total: {self.total_marks}"    

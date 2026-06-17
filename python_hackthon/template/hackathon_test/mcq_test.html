@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+
+    {% for i in mcq %}
+        <h4>{{ forloop.counter }}. {{ i.question }}</h4>
+
+        {% for option in i.shuffled_options %}
+            <label>
+                <input type="radio"
+                       name="question_{{ i.mcq_id }}"
+                       value="{{ option }}"
+                       required>
+                {{ option }}
+            </label>
+            <br>
+        {% endfor %}
+
+        <br>
+    {% endfor %}
+
+    <button type="submit">SUBMIT</button>
+</form>
+</body>
+</html>

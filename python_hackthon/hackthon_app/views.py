@@ -2,7 +2,7 @@ from unicodedata import name
 
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .models import User ,Test,MCQ
+from .models import User ,Test,MCQ,Marks
 from django.utils import timezone
 import random
 
@@ -38,19 +38,22 @@ def login(request):
         try:
             user = User.objects.get(email=email)
             if user.password == request.POST.get('password'):
-                messages.success(request, 'Login successful.')
+                
                 if timezone.localtime(Test.objects.get(email=user).start_time)==None and timezone.localtime(Test.objects.get(email=user).end_time)==None:
                     messages.info(request, 'Test not scheduled yet.')
                     return render(request,'user\\success.html' ,{'messages': messages.get_messages(request)})
                 elif timezone.localtime(Test.objects.get(email=user).start_time) <= timezone.localtime(timezone.now()) <= timezone.localtime(Test.objects.get(email=user).end_time):
                     request.session['user_email'] = user.email
+                    remaining_time=max(0,int((timezone.localtime(Test.objects.get(email=user).end_time)-timezone.now()).total_seconds()))
+                    request.session.set_expiry(remaining_time)
+                    print(remaining_time)
                     return redirect('test_info/')
                 elif timezone.localtime(timezone.now())> timezone.localtime(Test.objects.get(email=user).end_time):
                     messages.error(request, 'Expaired ')
                     return render(request,'user\\success.html' ,{'messages': messages.get_messages(request)})
                 else:
-                    messages.info(request,f'you test starts at {timezone.localtime(Test.objects.get(email=user).start_time).strftime("%d-%m-%Y %H:%M")}')
-                    return redirect(request,'user\\success.html', {'messages': messages.get_messages(request)})
+                    messages.info(request,f'you test starts at\t {timezone.localtime(Test.objects.get(email=user).start_time).strftime("%d-%m-%Y %H:%M")}')
+                    return render(request,'user\\success.html', {'messages': messages.get_messages(request)})
 
             else:
                 messages.error(request, 'Invalid password.')
@@ -62,28 +65,46 @@ def login(request):
 
 
 def test_info(request):
-    return render(request, 'hackthon_test\\test_info.html')
+    if request.session.get('user_email')==None:
+        messages.error(request, 'Please login to access the test.')
+        return redirect('/', {'messages': messages.get_messages(request)})
+    else:
+        return render(request, 'hackathon_test\\test_info.html')
 
 
 def mcq_test(request):
-    obj=list(MCQ.objects.all())
-    # mcqs=random.sample(obj,25)
-    random.shuffle(obj)
-   
-    for mcq in obj:
-        options=[
-            mcq.option1,
-            mcq.option2,
-            mcq.option3,
-            mcq.option4
-        ]
-        random.shuffle(options)
-        mcq.shuffled_options=options
-    if request.method=='POST':
-        score=0
-        for question in obj:
-            select_answer=request.POST.get(f'question_{question.id}')
-            if select_answer==question.answer:
-                score +=1
-        print(score)
-    return render(request,'hackthon_test\\mcq_test.html',{'mcq':obj})
+    print((request.session.get('user_email')))
+    if request.session.get('user_email')==None:
+        messages.error(request, 'Please login to access the test.')
+        return redirect('/', {'messages': messages.get_messages(request)})
+    else:
+        obj=list(MCQ.objects.all())
+        random.shuffle(obj)
+        mcqs=obj[:25]
+        for mcq in mcqs:
+            options=[
+                mcq.option1,
+                mcq.option2,
+                mcq.option3,
+                mcq.option4
+            ]
+            random.shuffle(options)
+            mcq.shuffled_options=options
+        if request.method=='POST':
+            score=0
+            for question in mcqs:
+                select_answer=request.POST.get(f'question_{question.mcq_id}')
+                if select_answer==question.answer:
+                    score +=1
+            user_email=request.session.get('user_email')
+            user=User.objects.get(email=user_email)
+            Marks.objects.create(email= user, mcq_marks=score) 
+            return redirect('coding_test/')
+        return render(request,'hackathon_test\\mcq_test.html',{'mcq':obj})
+    
+def coding_test(request):
+    if request.session.get('user_email')==None:
+        messages.error(request, 'Please login to access the test.')
+        return redirect('/', {'messages': messages.get_messages(request)})
+    else:
+        pass

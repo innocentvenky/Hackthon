@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Information</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css\hackathon_test\test_info.css' %}">
+</head>
+<body>
+
+<div class="test-card">
+
+    <div class="card-header">
+        <h1>Test Information</h1>
+        <p>Please review the details before starting the examination.</p>
+    </div>
+
+    <div class="card-body">
+
+        <div class="info-grid">
+
+            <div class="info-box">
+                <div class="label">Online Assessment</div>
+                <div class="value">VJISS Hackathon Exam</div>
+            </div>
+
+            <div class="info-box">
+                <div class="label">Duration</div>
+                <div class="value">60 Minutes</div>
+            </div>
+
+            <div class="info-box">
+                <div class="label">MCQ Questions</div>
+                <div class="value">25 Questions</div>
+            </div>
+
+            <div class="info-box">
+                <div class="label">Lab Questions</div>
+                <div class="value">5 Questions</div>
+            </div>
+
+            <div class="info-box">
+                <div class="label">Total Questions</div>
+                <div class="value">30 Questions</div>
+            </div>
+
+            <div class="info-box">
+                <div class="label">Exam Mode</div>
+                <div class="value">Online</div>
+            </div>
+
+        </div>
+
+         <div class="instructions">
+            <h3> General Instructions</h3>
+
+            <ul>
+                <li>The exam will start immediately after you click "Start exam". The timer cannot be paused once begun.</li>
+                <li>All questions are mandatory. You may review and change your answers at any time before submitting.</li>
+                <li>Each question has only one correct answer unless stated otherwise.</li>
+                <li>Your answers are auto-saved every 60 seconds. A connection indicator is shown at the top of the screen.</li>
+                <li>The exam will auto-submit when the timer reaches zero, even if unanswered questions remain.</li>
+            </ul>
+           
+        </div>
+
+         <div class="instructions">
+            <h3> Marks Scheme</h3>
+
+            <ul>
+                <li>+1 mark for every correct answer</li>
+                <li>–0.25 marks deducted for every wrong answer (negative marking applies).</li>
+                <li>0 marks for unattempted questions — no penalty for skipping.</li>
+                <li>Results will be published within 24 hours of exam completion.</li>
+            </ul>
+           
+        </div>
+
+        
+         <div class="instructions">
+            <h3>Prohibited actions</h3>
+
+            <ul>
+                <li>Do not switch tabs or minimize the browser window. Repeated tab switches may trigger automatic disqualification.</li>
+                <li>Do not use mobile phones, books, notes, or any external aid during the exam.</li>
+                <li>Do not share questions or answers with others during or after the exam session.</li>
+                <li>Do not refresh or navigate away from the page. Your progress will be saved, but suspicious activity is logged.</li>
+            </ul>
+           
+        </div>
+
+         <div class="instructions">
+            <h3>Technical requirements</h3>
+
+            <ul>
+                <li>Use a stable internet connection. We recommend wired or strong Wi-Fi. Mobile data is not recommended.</li>
+                <li>Use Google Chrome or Firefox (latest version). Other browsers may not be fully supported.</li>
+                <li>If you face a technical issue, do not close the browser. Contact support immediately using the help icon in the toolbar.</li>
+                <li>In  case of power/internet failure, you may re-login within 5 minutes and resume — your answers will be restored from the last auto-save.</li>
+            </ul>
+           
+        </div>
+        <div class="instructions">
+
+            <ul>
+                <li>Any attempt at malpractice or violation of these rules will result in immediate cancellation of your exam and may lead to further disciplinary action.</li>
+               
+            </ul>
+           
+        </div>
+
+
+         <div class="instructions">
+            <h3>Declaration</h3>
+
+            <ul>
+                <li>I confirm that I have read and understood all the instructions above. I agree to abide by the examination rules and undertake this exam with complete honesty and integrity. I understand that any violation may result in disqualification</li>
+               
+            </ul>
+           
+        </div>
+
+        <div class="options box">
+
+                <label>
+                    <input type="checkbox" name="agree"  required>
+                    I have read all the instructions and I agree to the terms above.
+                </label> 
+
+               
+            </div>
+
+
+
+
+        <div class="btn-container">
+           
+          <button type="submit" class="start-btn">Start Test</button>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

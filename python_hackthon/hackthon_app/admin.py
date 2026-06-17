@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import User,Test,MCQ
+from .models import User,Test,MCQ,Marks,CodingTest
 # Register your models here.
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'email', 'phone', 'education','college_name','branch', 'date_of_birth', 'created_at')
+    list_display = ('id','name', 'email', 'password','phone', 'education','college_name','branch', 'date_of_birth', 'created_at')
     search_fields = ('name', 'email', 'phone')
     list_filter = ('education','branch','college_name')
     ordering = ('-created_at',)
@@ -29,10 +29,30 @@ admin.site.register(Test, TestAdmin)
 
 
 class MCQAdmin(admin.ModelAdmin):
-    list_display = ('id', 'question', 'option1', 'option2', 'option3', 'option4', 'answer')
+    list_display = ('mcq_id', 'question', 'option1', 'option2', 'option3', 'option4', 'answer')
     search_fields = ('question',)
-    ordering = ('id',)
+    ordering = ('mcq_id',)
     def __str__(self):
-        keywords = ['id', 'question', 'option1', 'option2', 'option3', 'option4', 'answer']
+        keywords = ['mcq_id', 'question', 'option1', 'option2', 'option3', 'option4', 'answer']
         return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
 admin.site.register(MCQ, MCQAdmin)
+
+class CodingTestAdmin(admin.ModelAdmin):
+    list_display = ('coding_id', 'question', 'sample_input', 'sample_output')
+    search_fields = ('question',)
+    ordering = ('coding_id',)
+    def __str__(self):
+        keywords = ['coding_id', 'question', 'sample_input', 'sample_output']
+        return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
+admin.site.register(CodingTest, CodingTestAdmin)
+
+class MarksAdmin(admin.ModelAdmin):
+    list_display = ('get_user_name', 'mcq_marks', 'coding_marks', 'total_marks')
+    search_fields = ('email__name', 'email__email')
+    ordering = ('-total_marks',)
+    def get_user_name(self, obj):
+        return obj.email.name
+    def __str__(self):
+        keywords = ['id', 'email', 'mcq_marks', 'coding_marks', 'total_marks']
+        return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
+admin.site.register(Marks, MarksAdmin)
