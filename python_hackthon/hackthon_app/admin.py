@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import User,Test,MCQ,Marks,CodingTest
+from .models import User,Test,MCQ,Marks,CodingQuestion,TestCase
 # Register your models here.
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'email', 'password','phone', 'education','college_name','branch', 'date_of_birth', 'created_at')
+    list_display = ('id','name', 'email', 'password','mcq_test','coding_test','phone', 'education','college_name','branch', 'date_of_birth', 'created_at')
     search_fields = ('name', 'email', 'phone')
     list_filter = ('education','branch','college_name')
     ordering = ('-created_at',)
@@ -37,14 +37,6 @@ class MCQAdmin(admin.ModelAdmin):
         return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
 admin.site.register(MCQ, MCQAdmin)
 
-class CodingTestAdmin(admin.ModelAdmin):
-    list_display = ('coding_id', 'question', 'sample_input', 'sample_output')
-    search_fields = ('question',)
-    ordering = ('coding_id',)
-    def __str__(self):
-        keywords = ['coding_id', 'question', 'sample_input', 'sample_output']
-        return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
-admin.site.register(CodingTest, CodingTestAdmin)
 
 class MarksAdmin(admin.ModelAdmin):
     list_display = ('get_user_name', 'mcq_marks', 'coding_marks', 'total_marks')
@@ -56,3 +48,10 @@ class MarksAdmin(admin.ModelAdmin):
         keywords = ['id', 'email', 'mcq_marks', 'coding_marks', 'total_marks']
         return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
 admin.site.register(Marks, MarksAdmin)
+
+class CodeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'description', 'Input', 'Output')
+admin.site.register(CodingQuestion,CodeAdmin)
+class TestCaseAdmin(admin.ModelAdmin):
+    list_display = ('code', 'test_input', 'expected_output')
+admin.site.register(TestCase,TestCaseAdmin)

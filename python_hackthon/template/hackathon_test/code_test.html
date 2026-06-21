@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+
+    <title>Online Compiler</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css\hackathon_test\coding_test.css' %}">
+
+</head>
+
+
+<body>
+  {% include 'user/timer.html' %}
+<div class="header">
+  
+
+    <div class="logo">
+        
+        VJISS Pvt Ltd..     Hackathon Coding Test
+
+        <a href="{% url 'coding_question' %}">back</a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="left-panel">
+        <div class="question-title">
+            {{test.title}}
+        </div>
+
+        <div class="question-desc">
+
+          {{test.description}}
+
+            <br><br>
+
+            Example:
+
+            <pre>
+
+Input: {{test.Input}}
+
+Output: {{test.Output}}
+
+            </pre>
+
+        </div>
+    </div>
+
+    <div class="right-panel">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <input
+                type="hidden"
+                name="code"
+                id="code_input"
+            >
+
+            <div id="editor"></div>
+
+            <div class="controls">
+
+                <button
+                    type="submit"
+                    class="run-btn"
+                    namw="action"
+                    value="run"
+                    onclick="saveCode()">
+
+                    Run Code
+
+                </button>
+                    <button
+                    type="submit"
+                    class="submit-btn"
+                    name="action"
+                    value="submit"
+                    onclick="saveCode()">
+
+                    Submit
+
+                </button>
+            </div>
+
+        </form>
+
+        <div class="output">
+
+            <pre>{{ output }}</pre>
+
+        </div>
+       <div class="result-container">
+
+    <h3>Test Case Results</h3>
+
+    <table class="testcase-table">
+
+        <thead>
+            <tr>
+                <th>Test Case</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for test_no,result in test_cases.items %}
+            <tr>
+
+                <td>{{ test_no }}</td>
+             
+                <td>
+                    {% if result == "Passed" %}
+                        <span class="passed">
+                            ✓ Passed
+                        </span>
+                    {% else %}
+                        <span class="failed">
+                            ✗ Failed
+                        </span>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+    </div>
+
+</div>
+
+<script>
+
+let editor;
+
+require.config({
+    paths:{
+        vs:'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs'
+    }
+});
+
+require(['vs/editor/editor.main'],function(){
+
+    editor = monaco.editor.create(
+        document.getElementById('editor'),
+        {
+
+            value:`{{ code|default:''|escapejs }}`,
+
+            language:'python',
+
+            theme:'vs-dark',
+
+            automaticLayout:true,
+
+            minimap:{
+                enabled:true
+            },
+
+            fontSize:16
+        }
+    );
+
+});
+
+function saveCode(){
+
+    document.getElementById(
+        "code_input"
+    ).value =
+    editor.getValue();
+}
+function enterFullscreen() {
+
+    let elem = document.documentElement;
+
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    }
+    else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    }
+    else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+    }
+}
+
+window.onload = function() {
+
+    if (sessionStorage.getItem("exam_mode")) {
+
+        // Browser requires user interaction
+        document.addEventListener("click", function() {
+
+            if (!document.fullscreenElement) {
+                enterFullscreen();
+            }
+
+        }, { once: true });
+
+    }
+
+};
+
+document.addEventListener("fullscreenchange", function() {
+
+    if (!document.fullscreenElement) {
+
+        alert("Please stay in fullscreen mode.");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    {% include 'user/timer.html' %}
+      {% for coding_question in coding_question %}
+        <h1>{{coding_question.title}}</h1> 
+  <!-- CORRECT -->
+<a href="{% url 'code_test' coding_question.id %}">Start</a>
+
+    {% endfor %}
+</body>
+</html>

@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="{% static 'css\hackathon_test\test_info.css' %}">
 </head>
 <body>
-
+<form  method="POST">
+    {% csrf_token %}
 <div class="test-card">
 
     <div class="card-header">
@@ -73,9 +74,8 @@
 
             <ul>
                 <li>+1 mark for every correct answer</li>
-                <li>–0.25 marks deducted for every wrong answer (negative marking applies).</li>
                 <li>0 marks for unattempted questions — no penalty for skipping.</li>
-                <li>Results will be published within 24 hours of exam completion.</li>
+                <li>Results will be published within 42 hours of exam completion.</li>
             </ul>
            
         </div>
@@ -145,6 +145,6 @@
     </div>
 
 </div>
-
+</form>
 </body>
 </html>

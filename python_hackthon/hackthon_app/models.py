@@ -17,6 +17,8 @@ class User(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     date_of_birth=models.DateField()
     password=models.CharField(max_length=100,blank=True,null=True)
+    mcq_test=models.BooleanField(default=True)
+    coding_test=models.BooleanField(default=True)
     def __str__(self):
         return self.email
 
@@ -39,15 +41,6 @@ class MCQ(models.Model):
     def __str__(self):
         return self.question
 
-class CodingTest(models.Model):
-    coding_id=models.AutoField(primary_key=True)
-    question=models.TextField()
-    sample_input=models.TextField()
-    sample_output=models.TextField()
-    def __str__(self):
-        return self.question
-
-
 class Marks(models.Model):
     id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
     email=models.ForeignKey(User, on_delete=models.CASCADE, related_name='marks_user')
@@ -56,3 +49,20 @@ class Marks(models.Model):
     total_marks=models.IntegerField(default=0)
     def __str__(self):
         return f"Marks for {self.email.name}: MCQ: {self.mcq_marks}, Coding: {self.coding_marks}, Total: {self.total_marks}"    
+
+
+class CodingQuestion(models.Model):
+    id=models.AutoField(primary_key=True)
+    title=models.CharField(max_length=100)
+    description=models.TextField()
+    Input=models.TextField()
+    Output=models.TextField()
+    def __str__(self):
+        return self.title
+class TestCase(models.Model):
+    id=models.AutoField(primary_key=True)
+    code=models.ForeignKey(CodingQuestion,on_delete=models.CASCADE)
+    test_input=models.TextField()
+    expected_output=models.TextField()
+    def __str__(self):
+        return self.code.title 

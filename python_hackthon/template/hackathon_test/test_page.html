@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Portal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'css\hackathon_test\test_page.css' %}">
+</head>
+<body>
+{% include 'user/timer.html' %}
+  <div class="container">
+
+    <img src="{% static 'images/Vjiss.png' %}" alt="College Logo" class="logo">
+
+    <h1 class="exam">
+        All the Best for Your Hackathon Coding Test! 🚀
+
+    </h1>
+
+    <p class="subtitle">       
+Read all questions carefully.
+Manage your time wisely.
+Submit your solutions before the timer ends.
+
+Good Luck! 🍀
+    </p>
+
+
+   <div class="nav">
+    <a href="{% url 'mcq_test' %}" class="nav-btn">📝 MCQ Test</a>
+    <a href="{% url 'coding_question' %}" class="nav-btn">💻 Coding Test</a>
+</div>
+
+
+    <div class="footer">
+        © 2026 Examination Management System
+    </div>
+
+</div> 
+</body>
+
+
+
+
+
+
+</html>

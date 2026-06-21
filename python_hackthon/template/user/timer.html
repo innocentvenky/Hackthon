@@ -1,0 +1,58 @@
+<div id="timer-box">
+    ⏳ Time Left:
+    <span id="timer">00:00</span>
+</div>
+
+<style>
+#timer-box{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(10px);
+    padding:12px 20px;
+    border-radius:12px;
+    color:white;
+    font-size:18px;
+    font-weight:600;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+    z-index:9999;
+}
+</style>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    let totalSeconds = Number("{{ remaining_time|default:0 }}");
+
+    function updateTimer(){
+
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = totalSeconds % 60;
+
+        document.getElementById("timer").innerText =
+            String(minutes).padStart(2,'0')
+            + ":"
+            + String(seconds).padStart(2,'0');
+
+        if(totalSeconds <= 0){
+
+            clearInterval(timerInterval);
+
+            alert("Time is up!");
+
+            window.location.href = "{% url 'login' %}";
+            return;
+        }
+
+        totalSeconds--;
+    }
+
+    updateTimer();
+
+    let timerInterval = setInterval(updateTimer,1000);
+
+});
+
+</script>
