@@ -56,10 +56,13 @@ Output: {{test.Output}}
 
     <div class="right-panel">
 
-        <form method="POST">
+        <form method="POST" id="examForm">
 
             {% csrf_token %}
-
+             <input
+        type="hidden"
+        name="action"
+        id="action_field">
             <input
                 type="hidden"
                 name="code"
@@ -226,6 +229,159 @@ document.addEventListener("fullscreenchange", function() {
     }
 
 });
+
+
+/* =====================================
+   ANTI CHEATING PROTECTION
+===================================== */
+
+/* =====================================
+   ONE WARNING ONLY
+===================================== */
+
+let warned = false;
+
+function autoSubmitCodingTest() {
+
+    alert(
+        "Second violation detected.\n" +
+        "Your test will be submitted."
+    );
+
+    saveCode();
+
+    document.getElementById("action_field").value = "submiting";
+
+    document.getElementById("examForm").submit();
+}
+
+/* =====================================
+   TAB SWITCH DETECTION
+===================================== */
+
+document.addEventListener("visibilitychange", function () {
+
+    if (!document.hidden) return;
+
+    if (!warned) {
+
+        warned = true;
+
+        alert(
+            "Warning!\n\n" +
+            "Do not switch tabs.\n" +
+            "Next violation will submit the test."
+        );
+
+    } else {
+
+        autoSubmitCodingTest();
+
+    }
+});
+
+
+
+/* =====================================
+   TAB SWITCH DETECTION
+===================================== */
+
+document.addEventListener("visibilitychange", function () {
+
+    console.log("Visibility Changed");
+    console.log(document.hidden);
+
+    if (document.hidden) {
+
+        violationCount++;
+
+        console.log("Violation:", violationCount);
+
+        if (violationCount === 1) {
+
+            alert("Warning! First violation");
+
+        } else {
+
+            autoSubmitCodingTest();
+
+        }
+    }
+});
+/* =====================================
+   ALT + TAB / WINDOW SWITCH
+===================================== */
+
+window.addEventListener("blur", function () {
+
+    violationCount++;
+
+    if (violationCount >= 2) {
+
+        autoSubmitCodingTest();
+
+    }
+
+});
+
+/* =====================================
+   BLOCK DEVTOOLS
+===================================== */
+
+document.addEventListener("keydown", function(e){
+
+    if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && e.key === "I") ||
+        (e.ctrlKey && e.shiftKey && e.key === "J") ||
+        (e.ctrlKey && e.key === "u") ||
+        (e.ctrlKey && e.key === "U")
+    ) {
+
+        e.preventDefault();
+
+        alert(
+            "Developer tools are disabled during the coding test."
+        );
+    }
+
+});
+
+/* =====================================
+   DISABLE RIGHT CLICK
+===================================== */
+
+document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+});
+
+/* =====================================
+   FULLSCREEN EXIT DETECTION
+===================================== */
+
+document.addEventListener("fullscreenchange", function() {
+
+    if (!document.fullscreenElement) {
+
+        violationCount++;
+
+        if (violationCount >= 2) {
+
+            autoSubmitCodingTest();
+
+        } else {
+
+            alert(
+                "Warning!\n\n" +
+                "Please remain in fullscreen mode."
+            );
+
+            enterFullscreen();
+        }
+    }
+});
+
+
 
 </script>
 

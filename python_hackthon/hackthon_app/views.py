@@ -1,5 +1,3 @@
-from unicodedata import name
-
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from .models import User ,Test,MCQ
@@ -83,7 +81,11 @@ def test_info(request):
 
 
 def test_page(request):
-    remaining_time=request.session.get('remaining_time',0)
+    email=request.session.get('user_email')
+    user=User.objects.get(email=email)
+    remaining_time=max(0,int((timezone.localtime(Test.objects.get(email=user).end_time)-timezone.now()).total_seconds()))
+    request.session['remaining_time'] = remaining_time
+    request.session.set_expiry(remaining_time)
     if request.session.get('user_email')!=None:
         return render(request, 'hackathon_test\\test_page.html',{'remaining_time':remaining_time})
     else:
@@ -93,6 +95,9 @@ def test_page(request):
 def mcq_test(request):
     email=request.session.get('user_email')
     user=User.objects.get(email=email)
+    remaining_time=max(0,int((timezone.localtime(Test.objects.get(email=user).end_time)-timezone.now()).total_seconds()))
+    request.session['remaining_time'] = remaining_time
+    request.session.set_expiry(remaining_time)
     if user.mcq_test:
         if request.session.get('user_email')==None:
             messages.error(request, 'Please login to access the test.')
@@ -121,7 +126,7 @@ def mcq_test(request):
                 user.total_marks=user.coding_marks+user.mcq_marks
                 user.save()
                 return redirect('/test_page')
-        return render(request,'hackathon_test\\mcq_test.html',{'mcq':obj})
+        return render(request,'hackathon_test\\mcq_test.html',{'mcq':obj,'remaining_time':remaining_time})
     else:
         return redirect('/test_page')
     
@@ -129,7 +134,9 @@ def mcq_test(request):
 def coding_questions(request):
     email=request.session.get('user_email')
     user=User.objects.get(email=email)
-    remaining_time=request.session.get('remaining_time',0)
+    remaining_time=max(0,int((timezone.localtime(Test.objects.get(email=user).end_time)-timezone.now()).total_seconds()))
+    request.session['remaining_time'] = remaining_time
+    request.session.set_expiry(remaining_time)
     if user.coding_test==True:
         questions=list(CodingQuestion.objects.all())
         random.shuffle(questions)
@@ -144,7 +151,9 @@ def coding_test(request,id):
     print("email:",email)
     try:
         user=User.objects.get(email=email)
-        remaining_time=request.session.get('remaining_time',0)
+        remaining_time=max(0,int((timezone.localtime(Test.objects.get(email=user).end_time)-timezone.now()).total_seconds()))
+        request.session['remaining_time'] = remaining_time
+        request.session.set_expiry(remaining_time)
         if user.coding_test==True:
             total_mark=0
             total_tests=0
@@ -197,6 +206,10 @@ def coding_test(request,id):
                                 print(total_mark)
                                 submit='submiting'
                     if submit=='submiting':
+                        user.coding_test = False
+                        user.coding_marks = total_mark
+                        user.total_marks = user.coding_marks + user.mcq_marks
+                        user.save()
                         return redirect('/test_page')
 
                 except subprocess.TimeoutExpired:
