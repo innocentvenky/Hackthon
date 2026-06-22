@@ -1,15 +1,72 @@
 from django.contrib import admin
-from .models import User,Test,MCQ,Marks,CodingQuestion,TestCase
+from .models import User,Test,MCQ,CodingQuestion,TestCase
+
+from django.http import HttpResponse
+from openpyxl import Workbook
+
 # Register your models here.
+
+def export_users_excel(modeladmin, request, queryset):
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Users"
+
+    # Header
+    ws.append([
+
+        "Name",
+        "Email",
+        "Phone",
+        "Education",
+        "College Name",
+        "Branch",
+        "Date Of Birth",
+        "MCQ Test",
+        "Coding Test",
+        "MCQ Marks",
+        "Coding Marks",
+        "Total Marks",
+    ])
+
+    # Data
+    for user in queryset:
+        ws.append([
+            user.name,
+            user.email,
+            str(user.phone),
+            user.education,
+            user.college_name,
+            user.branch,
+            str(user.date_of_birth),
+            user.mcq_test,
+            user.coding_test,
+            user.mcq_marks,
+            user.coding_marks,
+            user.total_marks,
+        ])
+
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    response["Content-Disposition"] = 'attachment; filename="users.xlsx"'
+
+    wb.save(response)
+    return response
+
+
+export_users_excel.short_description = "Download selected users as Excel"
+
+
+@admin.register(User)
+
+
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'email', 'password','mcq_test','coding_test','phone', 'education','college_name','branch', 'date_of_birth', 'created_at')
+    list_display = ('id','name', 'email', 'password','phone', 'education','college_name','branch', 'date_of_birth', 'created_at','mcq_test','coding_test','mcq_marks','coding_marks','total_marks')
     search_fields = ('name', 'email', 'phone')
-    list_filter = ('education','branch','college_name')
+    list_filter = ('education','branch','college_name',)
     ordering = ('-created_at',)
-    def __str__(self):
-        keywords = ['name', 'email', 'phone', 'education', 'college_name', 'branch', 'date_of_birth', 'created_at']
-        return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
-admin.site.register(User, UserAdmin)
+    actions = [export_users_excel]
+
 
 class TestAdmin(admin.ModelAdmin):
     list_display = ('get_user_name','get_user_branch', 'email', 'start_time', 'end_time')
@@ -36,18 +93,6 @@ class MCQAdmin(admin.ModelAdmin):
         keywords = ['mcq_id', 'question', 'option1', 'option2', 'option3', 'option4', 'answer']
         return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
 admin.site.register(MCQ, MCQAdmin)
-
-
-class MarksAdmin(admin.ModelAdmin):
-    list_display = ('get_user_name', 'mcq_marks', 'coding_marks', 'total_marks')
-    search_fields = ('email__name', 'email__email')
-    ordering = ('-total_marks',)
-    def get_user_name(self, obj):
-        return obj.email.name
-    def __str__(self):
-        keywords = ['id', 'email', 'mcq_marks', 'coding_marks', 'total_marks']
-        return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
-admin.site.register(Marks, MarksAdmin)
 
 class CodeAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'Input', 'Output')

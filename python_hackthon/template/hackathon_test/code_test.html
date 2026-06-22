@@ -15,14 +15,16 @@
 <body>
   {% include 'user/timer.html' %}
 <div class="header">
-  
+
+    <a href="{% url 'coding_question' %}" class="back-btn">
+        ← Back
+    </a>
 
     <div class="logo">
-        
-        VJISS Pvt Ltd..     Hackathon Coding Test
-
-        <a href="{% url 'coding_question' %}">back</a>
+        VJISS Pvt Ltd.. Hackathon Coding Test
     </div>
+
+    <div class="header-space"></div>
 
 </div>
 
@@ -34,7 +36,7 @@
         </div>
 
         <div class="question-desc">
-
+            <h4 style="color:rgb(8, 214, 187)">Description:</h4>
           {{test.description}}
 
             <br><br>
@@ -71,7 +73,7 @@ Output: {{test.Output}}
                 <button
                     type="submit"
                     class="run-btn"
-                    namw="action"
+                    name="action"
                     value="run"
                     onclick="saveCode()">
 
@@ -82,7 +84,7 @@ Output: {{test.Output}}
                     type="submit"
                     class="submit-btn"
                     name="action"
-                    value="submit"
+                    value="submiting"
                     onclick="saveCode()">
 
                     Submit

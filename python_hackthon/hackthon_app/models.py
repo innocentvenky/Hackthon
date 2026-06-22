@@ -19,6 +19,9 @@ class User(models.Model):
     password=models.CharField(max_length=100,blank=True,null=True)
     mcq_test=models.BooleanField(default=True)
     coding_test=models.BooleanField(default=True)
+    mcq_marks=models.IntegerField(default=0)
+    coding_marks=models.IntegerField(default=0)
+    total_marks=models.IntegerField(default=0)
     def __str__(self):
         return self.email
 
@@ -40,16 +43,6 @@ class MCQ(models.Model):
     answer=models.CharField(max_length=200)
     def __str__(self):
         return self.question
-
-class Marks(models.Model):
-    id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
-    email=models.ForeignKey(User, on_delete=models.CASCADE, related_name='marks_user')
-    mcq_marks=models.IntegerField(default=0)
-    coding_marks=models.IntegerField(default=0)
-    total_marks=models.IntegerField(default=0)
-    def __str__(self):
-        return f"Marks for {self.email.name}: MCQ: {self.mcq_marks}, Coding: {self.coding_marks}, Total: {self.total_marks}"    
-
 
 class CodingQuestion(models.Model):
     id=models.AutoField(primary_key=True)

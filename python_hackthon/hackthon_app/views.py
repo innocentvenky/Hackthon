@@ -2,7 +2,7 @@ from unicodedata import name
 
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from .models import User ,Test,MCQ,Marks
+from .models import User ,Test,MCQ
 from django.utils import timezone
 import random
 import subprocess
@@ -117,9 +117,9 @@ def mcq_test(request):
                     if select_answer==question.answer:
                         score +=1
                 user.mcq_test=False
+                user.mcq_marks=score
+                user.total_marks=user.coding_marks+user.mcq_marks
                 user.save()
-                
-                request.session['mcq_marks']=score
                 return redirect('/test_page')
         return render(request,'hackathon_test\\mcq_test.html',{'mcq':obj})
     else:
@@ -146,7 +146,7 @@ def coding_test(request,id):
         user=User.objects.get(email=email)
         remaining_time=request.session.get('remaining_time',0)
         if user.coding_test==True:
-            total_marks=0
+            total_mark=0
             total_tests=0
             total=0
             test_case_marks=3
@@ -159,6 +159,7 @@ def coding_test(request,id):
             if request.method=="POST":
                 code=request.POST.get('code')
                 temp_file = None
+                submit=request.POST.get('action')
                 try:
                     for i,testcase in enumerate(test_cases):
                         exceuted_code=code+"\n"
@@ -181,16 +182,22 @@ def coding_test(request,id):
                                 res[f'Test case {i+1}'] = 'Passed'
                             elif output.strip()!=expected_output.strip():
                                 res[f'Test case {i+1}'] = 'Failed'
-
-                            if request.POST.get('action')=='submit':
+                            print("value of :",submit)
+                            print("reslut",submit=='submiting' or (request.POST.get("action")=='submiting'))
+                            if submit=='submiting' or (request.POST.get("action")=='submiting'):
                                 if output.strip()==expected_output.strip():
                                     res[f'Test case {i+1}'] = 'Passed'
-                                    total_marks+=test_case_marks
+                                    total_mark+=test_case_marks
                                     user.coding_test=False
-                                    user.save()
+                                    user.coding_marks=total_mark
+                                    user.total_marks=user.coding_marks+user.mcq_marks
+                    
                                 elif output.strip()!=expected_output.strip():
                                     res[f'Test case {i+1}'] = 'Failed'
-                                return redirect("/test_page/")
+                                print(total_mark)
+                                submit='submiting'
+                    if submit=='submiting':
+                        return redirect('/test_page')
 
                 except subprocess.TimeoutExpired:
                     output="Execution timed out."
@@ -199,20 +206,9 @@ def coding_test(request,id):
                 finally:
                     if temp_file and os.path.exists(temp_file):
                         os.remove(temp_file)
-                request.session['coding_marks']=total_marks
-            return render(request,'hackathon_test\code_test.html', {
-                    "output": output,
-                    "code": code,
-                    "test":task,
-                    "test_cases":res,
-                    'remaining_time':remaining_time
-                    })
+                    user.save()
+            return render(request,'hackathon_test\code_test.html', {"output": output,"code": code,"test":task,"test_cases":res,'remaining_time':remaining_time})
         else:
             return redirect('/test_page')
     except User.DoesNotExist:
         return redirect('/')
-
-
-
-def submit(request):
-    pass
