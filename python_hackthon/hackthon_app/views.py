@@ -94,63 +94,70 @@ def test_page(request):
 
 def mcq_test(request):
     email=request.session.get('user_email')
-    user=User.objects.get(email=email)
-    remaining_time=max(0,int((timezone.localtime(Test.objects.get(email=user).end_time)-timezone.now()).total_seconds()))
-    request.session['remaining_time'] = remaining_time
-    request.session.set_expiry(remaining_time)
-    if user.mcq_test:
-        if request.session.get('user_email')==None:
-            messages.error(request, 'Please login to access the test.')
-            return redirect('/', {'messages': messages.get_messages(request)})
+    try:
+        user=User.objects.get(email=email)
+        remaining_time=max(0,int((timezone.localtime(Test.objects.get(email=user).end_time)-timezone.now()).total_seconds()))
+        request.session['remaining_time'] = remaining_time
+        request.session.set_expiry(remaining_time)
+        if user.mcq_test:
+            if request.session.get('user_email')==None:
+                messages.error(request, 'Please login to access the test.')
+                return redirect('/', {'messages': messages.get_messages(request)})
+            else:
+                if 'mcq_ids' not in request.session:
+                    id = list(MCQ.objects.values_list('mcq_id', flat=True))
+                    ids=[]
+                    start=0
+                    end=4
+                    for x in range(21):
+                            temp=id[start:end]
+                            rand=random.choice(temp)
+                            ids.append(rand)
+                            start=end
+                            end +=4
+                    request.session['mcq_ids'] = ids[:25]
+
+                ids = request.session['mcq_ids']
+
+                mcq_dict = {q.mcq_id: q for q in MCQ.objects.filter(mcq_id__in=ids)}
+
+                mcqs = [mcq_dict[i] for i in ids]
+                for mcq in mcqs:
+                    options=[
+                        mcq.option1,
+                        mcq.option2,
+                        mcq.option3,
+                        mcq.option4
+                    ]
+                    random.shuffle(options)
+                    mcq.shuffled_options=options
+                if request.method=='POST':
+                    print(request.POST)
+                    print(request.POST.keys())
+
+                    print(" after Data")
+                    print([x.mcq_id for x in mcqs])
+
+                    score=0
+                    for question in mcqs:
+                        select_answer=request.POST.get(f'question_{question.mcq_id}')
+                        print("Question : ",question.question)
+                        print(f"selected answer : {select_answer} \nright answer : {question.answer}")
+                        if select_answer==question.answer:
+                            score +=1
+                    user.mcq_test=False
+                    user.mcq_marks=score
+                    user.total_marks=user.coding_marks+user.mcq_marks
+                    user.save()
+                    if 'mcq_ids' in request.session:
+                        del request.session['mcq_ids']
+                    return redirect('/test_page')
+
+            return render(request,'hackathon_test\\mcq_test.html',{'mcq':mcqs,'remaining_time':remaining_time})
         else:
-            if 'mcq_ids' not in request.session:
-                ids = list(MCQ.objects.values_list('mcq_id', flat=True))
-                for x in range(4):
-                    random.shuffle(ids)
-                request.session['mcq_ids'] = ids[:25]
-
-            ids = request.session['mcq_ids']
-
-            mcq_dict = {q.mcq_id: q for q in MCQ.objects.filter(mcq_id__in=ids)}
-
-            mcqs = [mcq_dict[i] for i in ids]
-
-            print("Question IDs:")
-            print(ids)
-            for mcq in mcqs:
-                options=[
-                    mcq.option1,
-                    mcq.option2,
-                    mcq.option3,
-                    mcq.option4
-                ]
-                random.shuffle(options)
-                mcq.shuffled_options=options
-            if request.method=='POST':
-                print(request.POST)
-                print(request.POST.keys())
-
-                print(" after Data")
-                print([x.mcq_id for x in mcqs])
-
-                score=0
-                for question in mcqs:
-                    select_answer=request.POST.get(f'question_{question.mcq_id}')
-                    print(f"selected answer : {select_answer} \nright answer : {question.answer}")
-                    if select_answer==question.answer:
-                        score +=1
-                user.mcq_test=False
-                user.mcq_marks=score
-                user.total_marks=user.coding_marks+user.mcq_marks
-                user.save()
-                if 'mcq_ids' in request.session:
-                    del request.session['mcq_ids']
-                return redirect('/test_page')
-          
-        return render(request,'hackathon_test\\mcq_test.html',{'mcq':mcqs,'remaining_time':remaining_time})
-    else:
-        return redirect('/test_page')
-    
+            return redirect('/test_page')
+    except User.DoesNotExist:
+        return redirect('/')
 
 def coding_questions(request):
     email=request.session.get('user_email')

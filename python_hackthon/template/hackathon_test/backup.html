@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Examination System</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'css\hackathon_test\mcq_test.css' %}">
+</head>
+
+<body>
+<form method="POST" id="examForm">
+{% csrf_token %}
+
+<div id="hiddenInputs"></div>
+  <!-- ══════════════════════ HEADER ══════════════════════ -->
+  <header class="exam-header">
+    <div class="header-left">
+      <div class="exam-logo">
+        <span class="logo-icon">📋</span>
+        <div class="exam-info">
+          <span class="exam-title">Python Entry Level Test</span>
+          <span class="candidate-name">Candidate: Chaitanya Sai</span>
+        </div>
+      </div>
+    </div>
+     {% include 'user/timer.html' %}
+  </header>
+
+  <!-- ══════════════════════ MAIN LAYOUT ══════════════════════ -->
+  <div class="exam-body">
+
+    <!-- LEFT: Question Area -->
+    <main class="question-section">
+      <div class="question-card" id="questionCard">
+        <div class="question-meta">
+          <span class="question-number" id="qNumber">Question 1 of 20</span>
+          <span class="question-type">Single Correct Answer</span>
+        </div>
+       <div class="question-text">
+    <div id="questionText"></div>
+    <pre id="questionCode"></pre>
+</div>
+        <div class="options-list" id="optionsList"></div>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+          <div class="nav-row">
+            <button  type="button" class="btn btn-prev" id="btnPrev" onclick="navigate(-1)">◀ Previous</button>
+            <button  type="button" class="btn btn-clear" id="btnClear" onclick="clearResponse()">✕ Clear Response</button>
+            <button  type="button" class="btn btn-review" id="btnReview" onclick="markForReview()">🏷 Mark for Review</button>
+            <button  type="button" class="btn btn-save" id="btnSave" onclick="saveAndNext()">Save & Next ▶</button>
+          </div>
+          <div class="submit-row">
+            <button
+    type="button"
+    class="btn btn-submit"
+    onclick="submitTest()">🔒 Submit Test</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT: Palette + Legend -->
+    <aside class="palette-section">
+      <div class="palette-card">
+        <div class="palette-header">
+          <span class="palette-title">Question Palette</span>
+          <span class="palette-stats" id="paletteStats">0/25 Answered</span>
+        </div>
+        <div class="palette-grid" id="paletteGrid"></div>
+
+        <!-- Legend -->
+        <div class="legend">
+          <div class="legend-title">Legend</div>
+          <div class="legend-item"><span class="legend-box answered"></span> Answered</div>
+          <div class="legend-item"><span class="legend-box review"></span> Marked for Review</div>
+          <div class="legend-item"><span class="legend-box answered-review"></span> Answered & Marked</div>
+          <div class="legend-item"><span class="legend-box current"></span> Current</div>
+          <div class="legend-item"><span class="legend-box unvisited"></span> Not Visited</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ══════════════════════ SUBMIT MODAL ══════════════════════ -->
+  <div class="modal-overlay" id="submitModal">
+    <div class="modal-box">
+      <div class="modal-icon">📝</div>
+      <h2 class="modal-title">Submit Test?</h2>
+      <p class="modal-desc">Are you sure you want to submit? You cannot change your answers after submission.</p>
+      <div class="modal-summary" id="modalSummary"></div>
+      <div class="modal-actions">
+        <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-confirm-submit" onclick="submitTest()">Yes, Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+/* ═══════════════════════════════════════════════════════
+   ONLINE EXAMINATION SYSTEM — script.js
+   Complete exam logic: timer, navigation, palette, scoring
+═══════════════════════════════════════════════════════ */
+
+// ══════════════════════ QUESTION BANK ══════════════════════
+
+
+// const questions = [
+
+// {% for q in mcq %}
+// {
+//     id: {{ q.mcq_id }},
+//     text: `{{ q.question|escapejs }}`,
+//     options: [
+//         {% for option in q.shuffled_options %}
+//         `{{ option|escapejs }}`
+//         {% if not forloop.last %},{% endif %}
+//         {% endfor %}
+//     ]
+// },
+// {% endfor %}
+
+// ];
+
+
+const questions = [
+{% for q in mcq %}
+{
+    id: {{ q.mcq_id }},
+    text: `{{ q.question|escapejs }}`,
+    code: `{{ q.code|escapejs }}`,
+    options: [
+        {% for option in q.shuffled_options %}
+        `{{ option|escapejs }}`
+        {% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]
+},
+{% endfor %}
+];
+
+
+
+
+const TOTAL_QUESTIONS = questions.length;
+
+// ══════════════════════ STATE ══════════════════════
+let currentIndex = 0;
+let answers        = new Array(TOTAL_QUESTIONS).fill(null); // selected option index or null
+let statuses       = new Array(TOTAL_QUESTIONS).fill("unvisited");
+ 
+
+// ══════════════════════ INIT ══════════════════════
+document.addEventListener("DOMContentLoaded", () => {
+  buildPalette();
+  renderQuestion(currentIndex);
+  startTimer();
+});
+
+// ══════════════════════ RENDER QUESTION ══════════════════════
+function renderQuestion(index) {
+  const q = questions[index];
+  currentIndex = index;
+
+  // fade animation restart
+  const card = document.getElementById("questionCard");
+  card.style.animation = "none";
+  void card.offsetWidth;
+  card.style.animation = "";
+
+  document.getElementById("qNumber").textContent = `Question ${index + 1} of ${TOTAL_QUESTIONS}`;
+  // document.getElementById("questionText").textContent = q.text;
+
+  // document.getElementById("questionText").innerText = q.text;
+
+document.getElementById("questionText").innerText = q.text;
+
+if(q.code){
+    document.getElementById("questionCode").innerText = q.code;
+    document.getElementById("questionCode").style.display = "block";
+}
+else{
+    document.getElementById("questionCode").style.display = "none";
+}
+
+
+  const optionsList = document.getElementById("optionsList");
+  optionsList.innerHTML = "";
+  const keys = ["A", "B", "C", "D"];
+
+  q.options.forEach((opt, i) => {
+    const item = document.createElement("div");
+    item.className = "option-item" + (answers[index] === i ? " selected" : "");
+
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    // radio.name = "option";
+    radio.name = `question_${q.id}`;
+    radio.value = i;
+    radio.id = `opt_${i}`;
+    radio.checked = answers[index] === i;
+
+    const label = document.createElement("label");
+    label.className = "option-label";
+    label.htmlFor = `opt_${i}`;
+    label.innerHTML = `<span class="option-key">${keys[i]}</span><span>${opt}</span>`;
+
+    item.appendChild(radio);
+    item.appendChild(label);
+
+    item.addEventListener("click", () => selectOption(i));
+    item.addEventListener("click", () => selectOption(i));
+
+    radio.addEventListener("change", () => selectOption(i));
+
+    label.addEventListener("click", () => selectOption(i));
+
+    optionsList.appendChild(item);
+  });
+
+  // Palette
+  updatePalette();
+  updatePaletteStats();
+
+  // Prev button
+  document.getElementById("btnPrev").disabled = index === 0;
+  document.getElementById("btnPrev").style.opacity = index === 0 ? "0.45" : "1";
+}
+
+function selectOption(optionIndex) {
+    console.log(
+        "Question:", currentIndex,
+        "Selected Option:", optionIndex
+    );
+
+    answers[currentIndex] = optionIndex;
+
+    document.querySelectorAll(".option-item").forEach((item, i) => {
+        item.classList.toggle("selected", i === optionIndex);
+        item.querySelector("input[type=radio]").checked = i === optionIndex;
+    });
+}
+// ══════════════════════ NAVIGATION ACTIONS ══════════════════════
+function saveAndNext() {
+  const prev = statuses[currentIndex];
+  if (answers[currentIndex] !== null) {
+    // If was marked-review with answer keep answered-review, else set answered
+    if (prev === "review") {
+      // mark answered only (no longer review)
+      statuses[currentIndex] = "answered";
+    } else if (prev === "answered-review") {
+      statuses[currentIndex] = "answered";
+    } else {
+      statuses[currentIndex] = "answered";
+    }
+  } else {
+    if (prev === "unvisited") statuses[currentIndex] = "unvisited";
+  }
+
+  if (currentIndex < TOTAL_QUESTIONS - 1) {
+    const next = currentIndex + 1;
+    if (statuses[next] === "unvisited") statuses[next] = "unvisited"; // will become current visually
+    renderQuestion(next);
+  }
+}
+
+function navigate(dir) {
+  const target = currentIndex + dir;
+  if (target < 0 || target >= TOTAL_QUESTIONS) return;
+
+  // mark visited but not answered
+  if (statuses[currentIndex] === "unvisited" && answers[currentIndex] === null) {
+    // stays unvisited (gray)
+  }
+  renderQuestion(target);
+}
+
+function markForReview() {
+  const prev = statuses[currentIndex];
+  if (answers[currentIndex] !== null) {
+    statuses[currentIndex] = "answered-review";
+  } else {
+    statuses[currentIndex] = "review";
+  }
+
+  if (currentIndex < TOTAL_QUESTIONS - 1) {
+    renderQuestion(currentIndex + 1);
+  } else {
+    updatePalette();
+    updatePaletteStats();
+  }
+}
+
+function clearResponse() {
+  answers[currentIndex] = null;
+
+  // reset to unvisited if was only answered; keep review if was review
+  if (statuses[currentIndex] === "answered") statuses[currentIndex] = "unvisited";
+  if (statuses[currentIndex] === "answered-review") statuses[currentIndex] = "review";
+
+  document.querySelectorAll(".option-item").forEach(item => {
+    item.classList.remove("selected");
+    item.querySelector("input[type=radio]").checked = false;
+  });
+  updatePalette();
+  updatePaletteStats();
+}
+
+function goToQuestion(index) {
+  renderQuestion(index);
+}
+
+// ══════════════════════ PALETTE ══════════════════════
+function buildPalette() {
+  const grid = document.getElementById("paletteGrid");
+  grid.innerHTML = "";
+  for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+   const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "palette-btn";
+    btn.id = `pb_${i}`;
+    btn.textContent = i + 1;
+    btn.onclick = () => goToQuestion(i);
+    grid.appendChild(btn);
+  }
+}
+
+function updatePalette() {
+  for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+    const btn = document.getElementById(`pb_${i}`);
+    btn.className = "palette-btn";
+    if (i === currentIndex) {
+      btn.classList.add("current");
+    } else {
+      const st = statuses[i];
+      if (st !== "unvisited") btn.classList.add(st);
+    }
+  }
+}
+
+function updatePaletteStats() {
+  const answered = statuses.filter(s => s === "answered" || s === "answered-review").length;
+  document.getElementById("paletteStats").textContent = `${answered}/${TOTAL_QUESTIONS} Answered`;
+}
+
+// ══════════════════════ SUBMIT FLOW ══════════════════════
+function confirmSubmit() {
+  const answered = statuses.filter(s => s === "answered" || s === "answered-review").length;
+  const review   = statuses.filter(s => s === "review" || s === "answered-review").length;
+  const notVisited = statuses.filter(s => s === "unvisited").length;
+  const notAnswered = TOTAL_QUESTIONS - answered;
+
+  document.getElementById("modalSummary").innerHTML = `
+    <div class="summary-item">
+      <span class="summary-label">Answered</span>
+      <span class="summary-value green">${answered}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Marked Review</span>
+      <span class="summary-value violet">${review}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Not Answered</span>
+      <span class="summary-value red">${notAnswered}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Not Visited</span>
+      <span class="summary-value gray">${notVisited}</span>
+    </div>
+  `;
+
+  document.getElementById("submitModal").classList.add("active");
+}
+
+function closeModal() {
+  document.getElementById("submitModal").classList.remove("active");
+}
+
+// function submitTest()
+// {
+//    alert("submitTest called");  
+//   const hidden =
+//         document.getElementById(
+//             "hiddenInputs"
+//         );
+
+//     hidden.innerHTML = "";
+
+//     questions.forEach((q,index)=>{
+
+//         let value = "";
+
+//         if(answers[index] !== null)
+//         {
+//             value =
+//             q.options[
+//                 answers[index]
+//             ];
+//         }
+
+//         hidden.innerHTML += `
+//         <input
+//             type="hidden"
+//             name="question_${q.id}"
+//             value="${value}">
+//         `;
+//     });
+
+//     document.forms[0].submit();
+// }
+
+
+
+function submitTest()
+{
+  alert("submitTest called"); 
+    const hidden = document.getElementById("hiddenInputs");
+    hidden.innerHTML = "";
+
+    questions.forEach((q,index)=>{
+
+        let value = "";
+
+        if (answers[index] !== null) {
+            value = q.options[answers[index]];
+        }
+
+        console.log(
+            "ID:", q.id,
+            "Answer Index:", answers[index],
+            "Value:", value
+        );
+
+        hidden.innerHTML += `
+        <input
+            type="hidden"
+            name="question_${q.id}"
+            value="${value}">
+        `;
+    });
+
+    document.forms[0].submit(); 
+}
+
+
+
+function autoSubmitExam() {
+
+    alert(
+        "You switched tabs multiple times.\n" +
+        "Your test is being submitted."
+    );
+
+    submitTest();
+}
+
+/* =====================================
+   TAB SWITCH DETECTION
+===================================== */
+
+let tabSwitchCount = 0;
+
+document.addEventListener("visibilitychange", function () {
+
+    if (document.hidden) {
+
+        tabSwitchCount++;
+
+        if (tabSwitchCount === 1) {
+
+            alert(
+                "Warning!\n\n" +
+                "Do not switch tabs.\n" +
+                "Next violation will submit the test."
+            );
+
+        } else {
+
+            autoSubmitExam();
+
+        }
+    }
+});
+
+/* =====================================
+   BLOCK DEVTOOLS
+===================================== */
+
+document.addEventListener("keydown", function(e){
+
+    if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && e.key === "I") ||
+        (e.ctrlKey && e.shiftKey && e.key === "J") ||
+        (e.ctrlKey && e.key === "u")
+    ) {
+
+        e.preventDefault();
+
+        alert(
+            "Developer tools are disabled during the exam."
+        );
+    }
+
+});
+
+/* =====================================
+   DISABLE RIGHT CLICK
+===================================== */
+
+document.addEventListener("contextmenu", function(e){
+    e.preventDefault();
+}); 
+
+</script>
+
+</form>
+</body>
+</html>

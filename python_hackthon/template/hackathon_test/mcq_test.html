@@ -57,7 +57,7 @@
             <button
     type="button"
     class="btn btn-submit"
-    onclick="submitTest()">🔒 Submit Test</button>
+    onclick="confirmSubmit()">🔒 Submit Test</button>
           </div>
         </div>
       </div>
@@ -416,6 +416,7 @@ function closeModal() {
 
 function submitTest()
 {
+ 
     const hidden = document.getElementById("hiddenInputs");
     hidden.innerHTML = "";
 
