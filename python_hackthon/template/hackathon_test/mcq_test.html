@@ -39,7 +39,10 @@
           <span class="question-number" id="qNumber">Question 1 of 20</span>
           <span class="question-type">Single Correct Answer</span>
         </div>
-        <div class="question-text" id="questionText">Loading...</div>
+       <div class="question-text">
+    <div id="questionText"></div>
+    <pre id="questionCode"></pre>
+</div>
         <div class="options-list" id="optionsList"></div>
 
         <!-- Navigation Buttons -->
@@ -54,7 +57,7 @@
             <button
     type="button"
     class="btn btn-submit"
-    onclick="confirmSubmit()">🔒 Submit Test</button>
+    onclick="submitTest()">🔒 Submit Test</button>
           </div>
         </div>
       </div>
@@ -65,7 +68,7 @@
       <div class="palette-card">
         <div class="palette-header">
           <span class="palette-title">Question Palette</span>
-          <span class="palette-stats" id="paletteStats">0/20 Answered</span>
+          <span class="palette-stats" id="paletteStats">0/25 Answered</span>
         </div>
         <div class="palette-grid" id="paletteGrid"></div>
 
@@ -105,12 +108,30 @@
 // ══════════════════════ QUESTION BANK ══════════════════════
 
 
-const questions = [
+// const questions = [
 
+// {% for q in mcq %}
+// {
+//     id: {{ q.mcq_id }},
+//     text: `{{ q.question|escapejs }}`,
+//     options: [
+//         {% for option in q.shuffled_options %}
+//         `{{ option|escapejs }}`
+//         {% if not forloop.last %},{% endif %}
+//         {% endfor %}
+//     ]
+// },
+// {% endfor %}
+
+// ];
+
+
+const questions = [
 {% for q in mcq %}
 {
     id: {{ q.mcq_id }},
     text: `{{ q.question|escapejs }}`,
+    code: `{{ q.code|escapejs }}`,
     options: [
         {% for option in q.shuffled_options %}
         `{{ option|escapejs }}`
@@ -119,8 +140,11 @@ const questions = [
     ]
 },
 {% endfor %}
-
 ];
+
+
+
+
 const TOTAL_QUESTIONS = questions.length;
 
 // ══════════════════════ STATE ══════════════════════
@@ -148,7 +172,20 @@ function renderQuestion(index) {
   card.style.animation = "";
 
   document.getElementById("qNumber").textContent = `Question ${index + 1} of ${TOTAL_QUESTIONS}`;
-  document.getElementById("questionText").textContent = q.text;
+  // document.getElementById("questionText").textContent = q.text;
+
+  // document.getElementById("questionText").innerText = q.text;
+
+document.getElementById("questionText").innerText = q.text;
+
+if(q.code){
+    document.getElementById("questionCode").innerText = q.code;
+    document.getElementById("questionCode").style.display = "block";
+}
+else{
+    document.getElementById("questionCode").style.display = "none";
+}
+
 
   const optionsList = document.getElementById("optionsList");
   optionsList.innerHTML = "";
@@ -160,7 +197,8 @@ function renderQuestion(index) {
 
     const radio = document.createElement("input");
     radio.type = "radio";
-    radio.name = "option";
+    // radio.name = "option";
+    radio.name = `question_${q.id}`;
     radio.value = i;
     radio.id = `opt_${i}`;
     radio.checked = answers[index] === i;
@@ -174,6 +212,11 @@ function renderQuestion(index) {
     item.appendChild(label);
 
     item.addEventListener("click", () => selectOption(i));
+    item.addEventListener("click", () => selectOption(i));
+
+    radio.addEventListener("change", () => selectOption(i));
+
+    label.addEventListener("click", () => selectOption(i));
 
     optionsList.appendChild(item);
   });
@@ -188,15 +231,18 @@ function renderQuestion(index) {
 }
 
 function selectOption(optionIndex) {
-  answers[currentIndex] = optionIndex;
+    console.log(
+        "Question:", currentIndex,
+        "Selected Option:", optionIndex
+    );
 
-  // Update UI
-  document.querySelectorAll(".option-item").forEach((item, i) => {
-    item.classList.toggle("selected", i === optionIndex);
-    item.querySelector("input[type=radio]").checked = i === optionIndex;
-  });
+    answers[currentIndex] = optionIndex;
+
+    document.querySelectorAll(".option-item").forEach((item, i) => {
+        item.classList.toggle("selected", i === optionIndex);
+        item.querySelector("input[type=radio]").checked = i === optionIndex;
+    });
 }
-
 // ══════════════════════ NAVIGATION ACTIONS ══════════════════════
 function saveAndNext() {
   const prev = statuses[currentIndex];
@@ -333,26 +379,59 @@ function closeModal() {
   document.getElementById("submitModal").classList.remove("active");
 }
 
+// function submitTest()
+// {
+//    alert("submitTest called");  
+//   const hidden =
+//         document.getElementById(
+//             "hiddenInputs"
+//         );
+
+//     hidden.innerHTML = "";
+
+//     questions.forEach((q,index)=>{
+
+//         let value = "";
+
+//         if(answers[index] !== null)
+//         {
+//             value =
+//             q.options[
+//                 answers[index]
+//             ];
+//         }
+
+//         hidden.innerHTML += `
+//         <input
+//             type="hidden"
+//             name="question_${q.id}"
+//             value="${value}">
+//         `;
+//     });
+
+//     document.forms[0].submit();
+// }
+
+
+
 function submitTest()
 {
-    const hidden =
-        document.getElementById(
-            "hiddenInputs"
-        );
-
+    const hidden = document.getElementById("hiddenInputs");
     hidden.innerHTML = "";
 
     questions.forEach((q,index)=>{
 
         let value = "";
 
-        if(answers[index] !== null)
-        {
-            value =
-            q.options[
-                answers[index]
-            ];
+        if (answers[index] !== null) {
+            value = q.options[answers[index]];
         }
+
+        console.log(
+            "ID:", q.id,
+            "Answer Index:", answers[index],
+            "Value:", value
+        );
 
         hidden.innerHTML += `
         <input
@@ -362,8 +441,10 @@ function submitTest()
         `;
     });
 
-    document.forms[0].submit();
+    document.forms[0].submit(); 
 }
+
+
 
 function autoSubmitExam() {
 

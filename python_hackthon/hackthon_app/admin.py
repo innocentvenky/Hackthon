@@ -86,7 +86,7 @@ admin.site.register(Test, TestAdmin)
 
 
 class MCQAdmin(admin.ModelAdmin):
-    list_display = ('mcq_id', 'question', 'option1', 'option2', 'option3', 'option4', 'answer')
+    list_display = ('mcq_id', 'question','code', 'option1', 'option2', 'option3', 'option4', 'answer')
     search_fields = ('question',)
     ordering = ('mcq_id',)
     def __str__(self):

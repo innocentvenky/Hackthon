@@ -25,6 +25,6 @@ urlpatterns = [
     path('mcq_test/',views.mcq_test,name='mcq_test'),
     path('test_page/',views.test_page,name='test_page'),
     path('coding_question/',views.coding_questions,name='coding_question'),
-    path('code_test/<int:id>',views.coding_test,name='code_test')
+    path('code_test/<uuid:id>',views.coding_test,name='code_test')
    
 ]

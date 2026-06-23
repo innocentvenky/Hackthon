@@ -36,6 +36,7 @@ class Test(models.Model):
 class MCQ(models.Model):
     mcq_id=models.AutoField(primary_key=True)
     question=models.TextField()
+    code=models.TextField(blank=True)
     option1=models.CharField(max_length=200)
     option2=models.CharField(max_length=200)
     option3=models.CharField(max_length=200)
@@ -45,7 +46,7 @@ class MCQ(models.Model):
         return self.question
 
 class CodingQuestion(models.Model):
-    id=models.AutoField(primary_key=True)
+    id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
     title=models.CharField(max_length=100)
     description=models.TextField()
     Input=models.TextField()
