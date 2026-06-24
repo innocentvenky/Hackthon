@@ -15,10 +15,11 @@
 <body>
   {% include 'user/timer.html' %}
 <div class="header">
-
-    <a href="{% url 'coding_question' %}" class="back-btn">
-        ← Back
-    </a>
+    <a href="{% url 'coding_question' %}"
+   class="back-btn"
+   onclick="allowNavigation()">
+    ← Back
+</a>
 
     <div class="logo">
         VJISS Pvt Ltd.. Hackathon Coding Test
@@ -37,7 +38,7 @@
 
         <div class="question-desc">
             <h4 style="color:rgb(8, 214, 187)">Description:</h4>
-          {{test.description}}
+           {{ test.description|linebreaks }}
 
             <br><br>
 
@@ -45,9 +46,9 @@
 
             <pre>
 
-Input: {{test.Input}}
+Input: {{test.Input |linebreaks}}
 
-Output: {{test.Output}}
+Output: {{test.Output |linebreaks}}
 
             </pre>
 
@@ -148,6 +149,11 @@ Output: {{test.Output}}
 </div>
 
 <script>
+    let leavingPage = false;
+
+function allowNavigation() {
+    leavingPage = true;
+}
 
 let editor;
 
@@ -259,7 +265,30 @@ function autoSubmitCodingTest() {
    TAB SWITCH DETECTION
 ===================================== */
 
+// document.addEventListener("visibilitychange", function () {
+
+//     if (!document.hidden) return;
+
+//     if (!warned) {
+
+//         warned = true;
+
+//         alert(
+//             "Warning!\n\n" +
+//             "Do not switch tabs.\n" +
+//             "Next violation will submit the test."
+//         );
+
+//     } else {
+
+//         autoSubmitCodingTest();
+
+//     }
+// });
+
 document.addEventListener("visibilitychange", function () {
+
+    if (leavingPage) return;
 
     if (!document.hidden) return;
 
@@ -280,34 +309,34 @@ document.addEventListener("visibilitychange", function () {
     }
 });
 
-
-
 /* =====================================
    TAB SWITCH DETECTION
 ===================================== */
 
-document.addEventListener("visibilitychange", function () {
+// document.addEventListener("visibilitychange", function () {
 
-    console.log("Visibility Changed");
-    console.log(document.hidden);
+//     console.log("Visibility Changed");
+//     console.log(document.hidden);
 
-    if (document.hidden) {
+//     if (document.hidden) {
 
-        violationCount++;
+//         violationCount++;
 
-        console.log("Violation:", violationCount);
+//         console.log("Violation:", violationCount);
 
-        if (violationCount === 1) {
+//         if (violationCount === 1) {
 
-            alert("Warning! First violation");
+//             alert("Warning! First violation");
 
-        } else {
+//         } else {
 
-            autoSubmitCodingTest();
+//             autoSubmitCodingTest();
 
-        }
-    }
-});
+//         }
+//     }
+// });
+
+
 /* =====================================
    ALT + TAB / WINDOW SWITCH
 ===================================== */
@@ -335,7 +364,12 @@ document.addEventListener("keydown", function(e){
         (e.ctrlKey && e.shiftKey && e.key === "I") ||
         (e.ctrlKey && e.shiftKey && e.key === "J") ||
         (e.ctrlKey && e.key === "u") ||
-        (e.ctrlKey && e.key === "U")
+        (e.ctrlKey && e.key === "U") ||
+        (e.ctrlKey && e.key === "v") ||
+        (e.ctrlKey && e.key === "V") ||
+        (e.ctrlKey && e.key === "C") ||
+        (e.ctrlKey && e.key === "") 
+
     ) {
 
         e.preventDefault();
@@ -359,29 +393,44 @@ document.addEventListener("contextmenu", function(e){
    FULLSCREEN EXIT DETECTION
 ===================================== */
 
+// document.addEventListener("fullscreenchange", function() {
+
+//     if (!document.fullscreenElement) {
+
+//         violationCount++;
+
+//         if (violationCount >= 2) {
+
+//             autoSubmitCodingTest();
+
+//         } else {
+
+//             alert(
+//                 "Warning!\n\n" +
+//                 "Please remain in fullscreen mode."
+//             );
+
+//             enterFullscreen();
+//         }
+//     }
+// });
+
 document.addEventListener("fullscreenchange", function() {
+
+    if (leavingPage) return;
 
     if (!document.fullscreenElement) {
 
         violationCount++;
 
         if (violationCount >= 2) {
-
             autoSubmitCodingTest();
-
         } else {
-
-            alert(
-                "Warning!\n\n" +
-                "Please remain in fullscreen mode."
-            );
-
+            alert("Please remain in fullscreen mode.");
             enterFullscreen();
         }
     }
 });
-
-
 
 </script>
 
