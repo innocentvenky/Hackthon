@@ -22,7 +22,7 @@
         <span class="logo-icon">📋</span>
         <div class="exam-info">
           <span class="exam-title">Python Entry Level Test</span>
-          <span class="candidate-name">Candidate: Chaitanya Sai</span>
+          <span class="candidate-name">{{user.name}}</span>
         </div>
       </div>
     </div>
@@ -93,7 +93,7 @@
       <p class="modal-desc">Are you sure you want to submit? You cannot change your answers after submission.</p>
       <div class="modal-summary" id="modalSummary"></div>
       <div class="modal-actions">
-        <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-cancel" onclick="return closeModal(event)">Cancel</button>
         <button class="btn btn-confirm-submit" onclick="submitTest()">Yes, Submit</button>
       </div>
     </div>
@@ -375,9 +375,24 @@ function confirmSubmit() {
   document.getElementById("submitModal").classList.add("active");
 }
 
-function closeModal() {
-  document.getElementById("submitModal").classList.remove("active");
+// function closeModal() {
+//   document.getElementById("submitModal").classList.remove("active");
+// }
+
+
+function closeModal(event) {
+    if(event){
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    document.getElementById("submitModal")
+            .classList.remove("active");
+
+    return false;
 }
+
+
 
 // function submitTest()
 // {

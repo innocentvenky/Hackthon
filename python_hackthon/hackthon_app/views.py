@@ -153,7 +153,7 @@ def mcq_test(request):
                         del request.session['mcq_ids']
                     return redirect('/test_page')
 
-            return render(request,'hackathon_test\\mcq_test.html',{'mcq':mcqs,'remaining_time':remaining_time})
+            return render(request,'hackathon_test\\mcq_test.html',{'mcq':mcqs,'user':user,'remaining_time':remaining_time})
         else:
             return redirect('/test_page')
     except User.DoesNotExist:
@@ -169,7 +169,7 @@ def coding_questions(request):
         questions=list(CodingQuestion.objects.all())
         random.shuffle(questions)
         coding_question=questions[:3]
-        return render(request,'hackathon_test\coding_question.html',{'coding_question':coding_question, 'remaining_time':remaining_time})
+        return render(request,'hackathon_test\\coding_question.html',{'coding_question':coding_question, 'remaining_time':remaining_time})
     else:
         return redirect("/test_page")
 
@@ -248,7 +248,7 @@ def coding_test(request,id):
                     if temp_file and os.path.exists(temp_file):
                         os.remove(temp_file)
                     user.save()
-            return render(request,'hackathon_test\code_test.html', {"output": output,"code": code,"test":task,"test_cases":res,'remaining_time':remaining_time})
+            return render(request,'hackathon_test\\code_test.html', {"output": output,"code": code,"test":task,"test_cases":res,'remaining_time':remaining_time})
         else:
             return redirect('/test_page')
     except User.DoesNotExist:
