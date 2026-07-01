@@ -510,7 +510,13 @@ document.addEventListener("keydown", function(e){
         e.key === "F12" ||
         (e.ctrlKey && e.shiftKey && e.key === "I") ||
         (e.ctrlKey && e.shiftKey && e.key === "J") ||
-        (e.ctrlKey && e.key === "u")
+        (e.ctrlKey && e.shiftKey && e.key === "j") ||
+          (e.ctrlKey && e.shiftKey && e.key === "i") ||
+        (e.ctrlKey && e.key === "u") ||
+      (e.ctrlKey && e.key === "U")||
+        (e.ctrlKey && e.key === "c")||
+        
+        (e.ctrlKey && e.key === "C")
     ) {
 
         e.preventDefault();

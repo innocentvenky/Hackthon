@@ -109,7 +109,7 @@ def mcq_test(request):
                     ids=[]
                     start=0
                     end=4
-                    for x in range(21):
+                    for x in range(25):
                             temp=id[start:end]
                             rand=random.choice(temp)
                             ids.append(rand)
