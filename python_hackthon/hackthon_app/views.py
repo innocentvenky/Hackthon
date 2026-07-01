@@ -30,8 +30,8 @@ def register(request):
         except User.DoesNotExist:
             User.objects.create(name=name, education=education, email=email, phone=phone, date_of_birth=date_of_birth, gender=gender, branch=barnch, college_name=college_name)
             messages.success(request, 'User registered successfully.')
-        return render(request, 'user\\success.html', {'name': name})
-    return render(request, 'user\\register.html')
+        return render(request, 'user/success.html', {'name': name})
+    return render(request, 'user/register.html')
 
 
 def login(request):
@@ -51,20 +51,20 @@ def login(request):
                         return redirect('test_info/')
                     elif timezone.localtime(timezone.now())> timezone.localtime(Test.objects.get(email=user).end_time):
                         messages.error(request, 'Expaired ')
-                        return render(request,'user\\success.html' ,{'messages': messages.get_messages(request)})
+                        return render(request,'user/success.html' ,{'messages': messages.get_messages(request)})
                     else:
                         messages.info(request,f'you test starts at\t {timezone.localtime(Test.objects.get(email=user).start_time).strftime("%d-%m-%Y %H:%M")}')
-                        return render(request,'user\\success.html', {'messages': messages.get_messages(request)})
+                        return render(request,'user/success.html', {'messages': messages.get_messages(request)})
                 except Test.DoesNotExist:
                     messages.info(request, 'Test not scheduled yet.')
-                    return render(request,'user\\success.html' ,{'messages': messages.get_messages(request)})
+                    return render(request,'user/success.html' ,{'messages': messages.get_messages(request)})
             else:
                 messages.error(request, 'Invalid password.')
                 return redirect('/', {'messages': messages.get_messages(request)})
         except User.DoesNotExist:
             messages.error(request, 'Invalid email id')
             return redirect('/', {'messages': messages.get_messages(request)})
-    return render(request, 'user\\login.html')
+    return render(request, 'user/login.html')
 
 
 
@@ -76,7 +76,7 @@ def test_info(request):
         if request.method=='POST':
             return redirect('/test_page')
         else:
-            return render(request, 'hackathon_test\\test_info.html')
+            return render(request, 'hackathon_test/test_info.html')
 
 
 
@@ -87,7 +87,7 @@ def test_page(request):
     request.session['remaining_time'] = remaining_time
     request.session.set_expiry(remaining_time)
     if request.session.get('user_email')!=None:
-        return render(request, 'hackathon_test\\test_page.html',{'remaining_time':remaining_time})
+        return render(request, 'hackathon_test/test_page.html',{'remaining_time':remaining_time})
     else:
         return redirect("login")
 
@@ -153,7 +153,7 @@ def mcq_test(request):
                         del request.session['mcq_ids']
                     return redirect('/test_page')
 
-            return render(request,'hackathon_test\\mcq_test.html',{'mcq':mcqs,'user':user,'remaining_time':remaining_time})
+            return render(request,'hackathon_test/mcq_test.html',{'mcq':mcqs,'user':user,'remaining_time':remaining_time})
         else:
             return redirect('/test_page')
     except User.DoesNotExist:
@@ -169,7 +169,7 @@ def coding_questions(request):
         questions=list(CodingQuestion.objects.all())
         random.shuffle(questions)
         coding_question=questions[:3]
-        return render(request,'hackathon_test\\coding_question.html',{'coding_question':coding_question, 'remaining_time':remaining_time})
+        return render(request,'hackathon_test/coding_question.html',{'coding_question':coding_question, 'remaining_time':remaining_time})
     else:
         return redirect("/test_page")
 
@@ -248,7 +248,7 @@ def coding_test(request,id):
                     if temp_file and os.path.exists(temp_file):
                         os.remove(temp_file)
                     user.save()
-            return render(request,'hackathon_test\\code_test.html', {"output": output,"code": code,"test":task,"test_cases":res,'remaining_time':remaining_time})
+            return render(request,'hackathon_test/code_test.html', {"output": output,"code": code,"test":task,"test_cases":res,'remaining_time':remaining_time})
         else:
             return redirect('/test_page')
     except User.DoesNotExist:
