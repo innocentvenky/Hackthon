@@ -28,10 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://*.up.railway.app",
-    "https://hackathon-production-745e.up.railway.app",
-]
+CSRF_TRUSTED_ORIGINS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
