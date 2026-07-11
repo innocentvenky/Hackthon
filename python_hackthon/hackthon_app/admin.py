@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import User,Test,MCQ,CodingQuestion,TestCase
-
+from django.utils.timezone import localtime
 from django.http import HttpResponse
 from openpyxl import Workbook
 
@@ -16,11 +16,15 @@ def export_users_excel(modeladmin, request, queryset):
 
         "Name",
         "Email",
+        "password",
         "Phone",
         "Education",
         "College Name",
         "Branch",
         "Date Of Birth",
+         "Exam Start Time",
+        "Exam End Time",
+        "Exam Duration",
         "MCQ Test",
         "Coding Test",
         "MCQ Marks",
@@ -30,14 +34,36 @@ def export_users_excel(modeladmin, request, queryset):
 
     # Data
     for user in queryset:
+        test = Test.objects.filter(email=user).order_by("-start_time").first()
+        exam_start_time = ""
+        exam_end_time = ""
+        exam_duration = ""
+        if test:
+            # Start time
+            if test.start_time:
+                exam_start_time = localtime(test.start_time).strftime("%d-%m-%Y %I:%M:%S %p")
+            if test.end_time:
+                exam_end_time = localtime(test.end_time).strftime("%d-%m-%Y %I:%M:%S %p")
+            if test.start_time and test.end_time:
+                duration = test.end_time - test.start_time
+                total_seconds = int(duration.total_seconds())
+                hours = total_seconds // 3600
+                minutes = (total_seconds % 3600) // 60
+                seconds = total_seconds % 60
+                exam_duration = (f"{hours:02d}:"f"{minutes:02d}:"f"{seconds:02d}")
+
         ws.append([
             user.name,
             user.email,
+            str(user.password),
             str(user.phone),
             user.education,
             user.college_name,
             user.branch,
             str(user.date_of_birth),
+            exam_start_time,
+            exam_end_time,
+            exam_duration,
             user.mcq_test,
             user.coding_test,
             user.mcq_marks,
