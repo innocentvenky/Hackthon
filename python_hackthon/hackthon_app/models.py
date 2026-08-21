@@ -34,7 +34,7 @@ class Test(models.Model):
         return f"Test from {self.start_time} to {self.end_time}"
 
 class MCQ(models.Model):
-    mcq_id=models.AutoField(primary_key=True)
+    mcq_id=models.IntegerField(primary_key=True)
     question=models.TextField()
     code=models.TextField(blank=True)
     option1=models.CharField(max_length=200)
@@ -43,7 +43,7 @@ class MCQ(models.Model):
     option4=models.CharField(max_length=200)
     answer=models.CharField(max_length=200)
     def __str__(self):
-        return self.question
+        return str(self.question or self.mcq_id)
 
 class CodingQuestion(models.Model):
     id=models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
@@ -54,7 +54,7 @@ class CodingQuestion(models.Model):
     def __str__(self):
         return self.title
 class TestCase(models.Model):
-    id=models.AutoField(primary_key=True)
+    id=models.IntegerField(primary_key=True)
     code=models.ForeignKey(CodingQuestion,on_delete=models.CASCADE)
     test_input=models.TextField()
     expected_output=models.TextField()

@@ -115,9 +115,7 @@ class MCQAdmin(admin.ModelAdmin):
     list_display = ('mcq_id', 'question','code', 'option1', 'option2', 'option3', 'option4', 'answer')
     search_fields = ('question',)
     ordering = ('mcq_id',)
-    def __str__(self):
-        keywords = ['mcq_id', 'question', 'option1', 'option2', 'option3', 'option4', 'answer']
-        return ', '.join(f"{keyword}: {getattr(self, keyword)}" for keyword in keywords)
+    
 admin.site.register(MCQ, MCQAdmin)
 
 class CodeAdmin(admin.ModelAdmin):

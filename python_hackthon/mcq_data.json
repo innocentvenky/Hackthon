@@ -1,0 +1,1302 @@
+[
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 1,
+        "fields": {
+            "question": "What is the output of the following program :",
+            "code": "i = 0\r\nwhile i < 3:\r\n       print(i)\r\n       i++\r\n       print(i+1)",
+            "option1": "0 2 1 3 2 4",
+            "option2": "1 2 3",
+            "option3": "Error",
+            "option4": "0 1 1 2 2 3",
+            "answer": "Error"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 2,
+        "fields": {
+            "question": "How do you concatenate two strings in Python?",
+            "code": "",
+            "option1": "str1 . str2",
+            "option2": "str1 + str2",
+            "option3": "str1 , str2",
+            "option4": "concat(str1, str2)",
+            "answer": "str1 + str2"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 3,
+        "fields": {
+            "question": "How do you check if a key is present in a dictionary?",
+            "code": "",
+            "option1": "key in dictionary",
+            "option2": "key.exists(dictionary)",
+            "option3": "dictionary.contains(key)",
+            "option4": "has_key(key, dictionary)",
+            "answer": "key in dictionary"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 4,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "x = \"Hello\"\r\nprint(x[1:-1])",
+            "option1": "Hell",
+            "option2": "ello",
+            "option3": "ell",
+            "option4": "Error",
+            "answer": "ell"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 5,
+        "fields": {
+            "question": "What is a variable in Python?",
+            "code": "",
+            "option1": "A reserved word",
+            "option2": "A data type",
+            "option3": "A location in memory to store data",
+            "option4": "A name",
+            "answer": "A location in memory to store data"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 6,
+        "fields": {
+            "question": "What does the type() function return in Python?",
+            "code": "",
+            "option1": "The value of the variable",
+            "option2": "The type of the variable",
+            "option3": "The memory address of the variable",
+            "option4": "The length of the variable",
+            "answer": "The type of the variable"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 7,
+        "fields": {
+            "question": "How do you swap the values of two variables in Python without using a third variable?",
+            "code": "",
+            "option1": "x = y; y = x",
+            "option2": "x, y = y, x",
+            "option3": "y = x; x = y; y = x",
+            "option4": "y=x+y, x=y-x, y=y+x",
+            "answer": "x, y = y, x"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 8,
+        "fields": {
+            "question": "What will be the output of the following code snippet?",
+            "code": "x = ~5\r\nif x == -6:\r\n  print(\"Negative\")\r\nelse:\r\n  print(\"Positive \")",
+            "option1": "Positive",
+            "option2": "Negative",
+            "option3": "Zero",
+            "option4": "Error",
+            "answer": "Negative"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 9,
+        "fields": {
+            "question": "What is the output of the following code snippet?",
+            "code": "a = 10\r\nb = 10\r\nx= 10 & 10\r\nif x > 5:\r\n  print(\"Greater than 5\")\r\nelif x > 8:\r\n  print(\"Greater than 8\")\r\nelse:\r\n  print(\"Less than or equal to 5\")",
+            "option1": "Greater than 5",
+            "option2": "Greater than 8",
+            "option3": "Less than or equal to 5",
+            "option4": "Error",
+            "answer": "Greater than 5"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 10,
+        "fields": {
+            "question": "Which statement is used to exit a loop prematurely in Python?",
+            "code": "",
+            "option1": "break",
+            "option2": "exit",
+            "option3": "return",
+            "option4": "continue",
+            "answer": "break"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 11,
+        "fields": {
+            "question": "What is the output of the following code snippet?",
+            "code": "for i in range(5):\r\n   if i == 3.0:\r\n       continue\r\n   print(i)",
+            "option1": "0 1 2 3 4",
+            "option2": "0 1 2 4",
+            "option3": "0 1 2",
+            "option4": "0 1 2 3",
+            "answer": "0 1 2 4"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 12,
+        "fields": {
+            "question": "Which of these is  not a core data type?",
+            "code": "",
+            "option1": "list()",
+            "option2": "None",
+            "option3": "tuple()",
+            "option4": "interger()",
+            "answer": "integer()"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 13,
+        "fields": {
+            "question": "What is the data type of variable 'A' in the following code?",
+            "code": "x = [1, 23, \"hello\", 1]\r\nA=[2:-2]",
+            "option1": "List",
+            "option2": "String",
+            "option3": "Tuple",
+            "option4": "None",
+            "answer": "List"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 14,
+        "fields": {
+            "question": "Which Python datatype maintains the order of elements inserted?",
+            "code": "",
+            "option1": "list",
+            "option2": "Set",
+            "option3": "Int",
+            "option4": "None",
+            "answer": "list"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 15,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "name = ['Alex', 'Emma', 'Bob', 'Lucas',\"Bob\"]\r\npos = name.index(\"Bob\")\r\nprint(pos * 3)",
+            "option1": "6",
+            "option2": "9",
+            "option3": "12",
+            "option4": "Error",
+            "answer": "6"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 16,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "li = [1, 2, 3, 4]\r\nli.append([5, 6, 7, 8])\r\nprint(li)",
+            "option1": "[1, 2, 3, 4, 5, 6, 7, 8]",
+            "option2": "[1, 2, 3, 4, [5, 6, 7, 8]]",
+            "option3": "[[1, 2, 3, 4], [5, 6, 7, 8]]",
+            "option4": "Error",
+            "answer": "[1, 2, 3, 4, [5, 6, 7, 8]]"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 17,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "a = ['Python', 'Java', 'C++', 'Go']\r\nb = a\r\nc = a[:]\r\nb[0] = 'Code'\r\nc[1] = 'Quiz'\r\ncount = 0\r\n\r\nfor x in (a, b, c):\r\n    if x[0] == 'Code':\r\n        count += 1\r\n\r\n    if x[1] == 'Quiz':\r\n        count += 10\r\n\r\nprint(count)",
+            "option1": "4",
+            "option2": "5",
+            "option3": "11",
+            "option4": "12",
+            "answer": "12"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 18,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "li=[3, 2, 1]\r\nx=3\r\nfor i in range(x):\r\n        li.append(li[i] * i)\r\nprint(li)",
+            "option1": "[3, 2, 1, 0, 1, 4]",
+            "option2": "[0,2,2]",
+            "option3": "[3,2,1,0,2,2]",
+            "option4": "[ 0,1,4]",
+            "answer": "[3,2,1,0,2,2]"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 19,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "li = list(range(100, 110))\r\nprint(li.index(105))",
+            "option1": "105",
+            "option2": "5",
+            "option3": "106",
+            "option4": "104",
+            "answer": "5"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 20,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "a = [1, 2, 3, 4, 5]\r\n\r\nb = a\r\nb[0] = 0\r\nprint(a)",
+            "option1": "[1, 2, 3, 4, 5, 0]",
+            "option2": "[0, 1, 2, 3, 4, 5]",
+            "option3": "[0, 2, 3, 4, 5]",
+            "option4": "[1, 2, 3, 4, 0]",
+            "answer": "[0, 2, 3, 4, 5]"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 21,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "a = 1, 3\r\nb = 2, 3\r\nprint(a + b * 2)",
+            "option1": "18",
+            "option2": "1,3,4,6",
+            "option3": "(1, 3, 2, 3, 2, 3)",
+            "option4": "14",
+            "answer": "(1, 3, 2, 3, 2, 3)"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 22,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "a = ['Apple', 'Banana', 'Mango', 'Orange']\r\nprint(a[2][1:-3])",
+            "option1": "a",
+            "option2": "n",
+            "option3": "M",
+            "option4": "g",
+            "answer": "a"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 23,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "a = ['python', 'coding', '@', 'apple', 'banana', 'orange']\r\nprint(a[0:len(a)*2:2])",
+            "option1": "['python', '@', 'banana']",
+            "option2": "Error",
+            "option3": "['python', 'coding', '@', 'apple', 'banana', 'orange']",
+            "option4": "['python', 'apple']",
+            "answer": "['python', '@', 'banana']"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 24,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "a , b=[ [1,2,3,4,5],(1,2,3,4,5) ]\r\nprint(a)",
+            "option1": "[1,2,3,4,5],(1,2,3,4,5)",
+            "option2": "(1,2,3,4,5)",
+            "option3": "[1,2,3,4,5]",
+            "option4": "Error",
+            "answer": "[1,2,3,4,5]"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 25,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "li = ['a', 'b', 'c', 'd', 'e']\r\nprint(li[10:])",
+            "option1": "['a', 'b', 'c', 'd', 'e']",
+            "option2": "['c', 'd', 'e']",
+            "option3": "[ ]",
+            "option4": "['a', 'b']",
+            "answer": "[ ]"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 26,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "li = ['a', 'b', 'c'] * -3\r\nprint(li)",
+            "option1": "['a', 'b', 'c', 'a', 'b', 'c', 'a', 'b', 'c']",
+            "option2": "Error",
+            "option3": "[ ]",
+            "option4": "['a', 'b', 'c']",
+            "answer": "[ ]"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 27,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "a = []\r\na.append([1, [2, 3], 4])\r\na.extend([7, 8, 9])\r\nprint(a[0][1][1] + a[2])",
+            "option1": "12",
+            "option2": "11",
+            "option3": "38",
+            "option4": "Type Error",
+            "answer": "11"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 28,
+        "fields": {
+            "question": "Which of the following is true about lists in Python?",
+            "code": "",
+            "option1": "Lists are dynamic sized arrays",
+            "option2": "Lists store references at items contiguous locations",
+            "option3": "A list can contain elements of different types.",
+            "option4": "All of the above",
+            "answer": "All of the above"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 29,
+        "fields": {
+            "question": "What does the following Python code do?",
+            "code": "a=1025\r\nb=True\r\nc=a/b\r\nprint(c)",
+            "option1": "1025.0",
+            "option2": "1025",
+            "option3": "Error",
+            "option4": "None",
+            "answer": "1025.0"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 30,
+        "fields": {
+            "question": "What does the following Python code do?",
+            "code": "x = 5\r\nif x:\r\n    print(\"Hello\")\r\nelse:\r\n    print(\"Bye\")",
+            "option1": "Bye",
+            "option2": "Hello",
+            "option3": "Error",
+            "option4": "Blank space",
+            "answer": "Hello"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 31,
+        "fields": {
+            "question": "What does the following Python code do?",
+            "code": "print(3 * \"3\")",
+            "option1": "333",
+            "option2": "9",
+            "option3": "Error",
+            "option4": "3 * \"3\"",
+            "answer": "333"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 32,
+        "fields": {
+            "question": "Which operator is used for membership testing?",
+            "code": "",
+            "option1": "==",
+            "option2": "in",
+            "option3": "is",
+            "option4": "and",
+            "answer": "in"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 33,
+        "fields": {
+            "question": "Which collection stores unique values?",
+            "code": "",
+            "option1": "List",
+            "option2": "Tuple",
+            "option3": "Set",
+            "option4": "String",
+            "answer": "Set"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 34,
+        "fields": {
+            "question": "What does the following Python code do?",
+            "code": "print(\"Python\"[1:4])",
+            "option1": "yth",
+            "option2": "Error",
+            "option3": "ytho",
+            "option4": "Pyt",
+            "answer": "yth"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 35,
+        "fields": {
+            "question": "Which keyword is used to create a function?",
+            "code": "",
+            "option1": "function",
+            "option2": "define",
+            "option3": "def",
+            "option4": "func",
+            "answer": "def"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 36,
+        "fields": {
+            "question": "Which operator checks object identity?",
+            "code": "",
+            "option1": "==",
+            "option2": "in",
+            "option3": "is",
+            "option4": "!=",
+            "answer": "is"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 37,
+        "fields": {
+            "question": "In Python, can a while loop be used to iterate over a dictionary directly?",
+            "code": "",
+            "option1": "Yes",
+            "option2": "No",
+            "option3": "Only if the dictionary keys are integers.",
+            "option4": "Only if the dictionary has a single key.",
+            "answer": "Yes"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 38,
+        "fields": {
+            "question": "What is the output of the following Python code?",
+            "code": "num = 2\r\nwhile num < 10:\r\n   print(num, end=\" \")\r\n   num **= 2",
+            "option1": "Prints powers of 2 from 2 to 8.",
+            "option2": "Prints the square of numbers from 2 to 10.",
+            "option3": "Prints numbers in the range [2, 10] with a step of 2.",
+            "option4": "Raises a SyntaxError.",
+            "answer": "Prints powers of 2 from 2 to 8."
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 39,
+        "fields": {
+            "question": "What does the following Python code do?",
+            "code": "x = 1\r\nwhile x < 6:\r\n    if x == 6/3:\r\n        x += 1\r\n        continue  \r\n    print(x, end=\" \")\r\n    x += 1",
+            "option1": "Prints numbers in the range [1, 6] with a skip for 2.",
+            "option2": "Prints numbers in the range [1, 6] without a skip.",
+            "option3": "Raises a SyntaxError.",
+            "option4": "Prints numbers in the range [1, 6]",
+            "answer": "Prints numbers in the range [1, 6] with a skip for 4."
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 40,
+        "fields": {
+            "question": "What does the following Python code do?",
+            "code": "num = 10\r\nwhile num > 0:\r\n    if num % 2 == 0:\r\n        print(num, end=\" \")\r\n    num -= 1",
+            "option1": "Prints even numbers in reverse order from 10 to 1.",
+            "option2": "Prints odd numbers in the range [1, 10].",
+            "option3": "Prints even numbers in the range [1, 10].",
+            "option4": "Raises a SyntaxError.",
+            "answer": "Prints even numbers in reverse order from 10 to 1."
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 41,
+        "fields": {
+            "question": "What is the output of the following Python code?",
+            "code": "count = 0\r\nwhile count < 3:\r\n   print(\"Hello\")\r\n   count += 1\r\nelse:\r\n   print(\"Else block\")",
+            "option1": "Prints \"Hello\" three times and then prints \"Else block.\"",
+            "option2": "Prints \"Hello\" three times.",
+            "option3": "Prints \"Else block\"",
+            "option4": "Raises a SyntaxError",
+            "answer": "Prints \"Hello\" three times and then prints \"Else block.\""
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 42,
+        "fields": {
+            "question": "Which of the following statements is used to increment a variable within a while loop?",
+            "code": "",
+            "option1": "=+",
+            "option2": "++",
+            "option3": "+=",
+            "option4": "increment",
+            "answer": "+="
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 43,
+        "fields": {
+            "question": "How can you avoid an infinite loop?",
+            "code": "",
+            "option1": "By using a for loop instead.",
+            "option2": "By setting the loop condition to True.",
+            "option3": "By providing a valid exit condition.",
+            "option4": "Infinite loops cannot be avoided.",
+            "answer": "By providing a valid exit condition."
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 44,
+        "fields": {
+            "question": "What will be the output of the following code?",
+            "code": "d = {'a': 5, 'b': 10}\r\nd['a'] = 15,5\r\nprint(d)",
+            "option1": "{'a': {15,5} 'b': 10}",
+            "option2": "{'a': [15,5], 'b': 10}",
+            "option3": "{'a': 15,5 'b': 10}",
+            "option4": "{'a': (15,5), 'b': 10}",
+            "answer": "{'a': (15,5), 'b': 10}"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 45,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "d1 = {'GFG' : 1, 'Google' : 2, 'GFG' : 3} \r\nprint(d1[('GFG')])",
+            "option1": "1",
+            "option2": "Runtime time error due to duplicate keys",
+            "option3": "3",
+            "option4": "KeyError",
+            "answer": "3"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 46,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "d = {1:'1', 2:'2', 3:'3'} \r\ndel d[1] \r\nd[1] = '10'\r\ndel d[2] \r\nprint (len(d) )",
+            "option1": "1",
+            "option2": "2",
+            "option3": "3",
+            "option4": "Error",
+            "answer": "2"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 47,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "a ={} \r\na['a']= 1\r\na['b']=[2, 3, 4] \r\nprint(a)",
+            "option1": "{�b�: [2], �a�: 1}",
+            "option2": "{'a': 1, 'b': [2, 3, 4]}",
+            "option3": "{�b�: [2], �a�: [3]}",
+            "option4": "Error",
+            "answer": "{'a': 1, 'b': [2, 3, 4]}"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 48,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "d = {\"geek\":10, \"for\":45, \"geeks\": 90} \r\nprint(\"geek\" in d)",
+            "option1": "10",
+            "option2": "False",
+            "option3": "True",
+            "option4": "Error",
+            "answer": "True"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 49,
+        "fields": {
+            "question": "Find the output of the following program:",
+            "code": "d1 = {\"john\":40, \"peter\":45} \r\nd2 = {\"john\":466, \"peter\":45} \r\nprint (d1 > d2)",
+            "option1": "True",
+            "option2": "False",
+            "option3": "Compilation Error",
+            "option4": "TypeError",
+            "answer": "TypeError"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 50,
+        "fields": {
+            "question": "Which of the following is FALSE about dictionary?",
+            "code": "",
+            "option1": "The values of a dictionary can be accessed using keys",
+            "option2": "The keys of a dictionary can be accessed using values",
+            "option3": "Both of the above",
+            "option4": "None of the above",
+            "answer": "The keys of a dictionary can be accessed using values"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 51,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "set1 = {1, 2, 3, 4, 4} \r\nprint(set1)",
+            "option1": "{1, 2, 3}",
+            "option2": "{1, 2, 3, 4}",
+            "option3": "{1, 2, 3, 4, 4}",
+            "option4": "Error",
+            "answer": "{1, 2, 3, 4}"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 52,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "set1 = {3, 4, 5} \r\nset1.update([1, 2, 3]) \r\nprint(set1)",
+            "option1": "{1, 2, 3, 4, 5}",
+            "option2": "{3, 4, 5, 1, 2, 3}",
+            "option3": "{1, 2, 3, 3, 4, 5}",
+            "option4": "Error",
+            "answer": "{1, 2, 3, 4, 5}"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 53,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "set1 = {1, 2, 3} \r\nset2 = set1.add(4) \r\nprint(set2)",
+            "option1": "{1, 2, 3, 4}",
+            "option2": "{1, 2, 3}",
+            "option3": "Invalid Syntax",
+            "option4": "None",
+            "answer": "None"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 54,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "set1 = {1, 2, 3} \r\nset2 = {4, 5, 6} \r\nprint(len(set1 + set2))",
+            "option1": "3",
+            "option2": "6",
+            "option3": "Unexpected",
+            "option4": "Error",
+            "answer": "Error"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 55,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "set1 = set([1, 2, 4, 4, 3, 3, 3, 6, 5]) \r\n\r\nprint(set1)",
+            "option1": "{1, 2, 4, 4, 3, 3, 3, 6, 5}",
+            "option2": "{1, 2, 3, 4, 5, 6}",
+            "option3": "[1, 2, 3, 4, 5, 6]",
+            "option4": "[1, 2, 3, 3, 3,4,4, 5, 6]",
+            "answer": "{1, 2, 3, 4, 5, 6}"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 56,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "set1 = set([ 4, 5, (6, 7)]) \r\nset1.update([10, 11]) \r\n\r\nprint(set1)",
+            "option1": "{4, 5, 6, 7, 10, 11}",
+            "option2": "{4, 5, 10, 11}",
+            "option3": "{4, 5, (6, 7), 10, 11}",
+            "option4": "None",
+            "answer": "{4, 5, (6, 7), 10, 11}"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 57,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "tup = (1, 2, 3, 4) \r\ntup.append( (5, 6, 7) ) \r\nprint(len(tup))",
+            "option1": "1",
+            "option2": "Error",
+            "option3": "7",
+            "option4": "None",
+            "answer": "Error"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 58,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "tup = {} \r\ntup[(1,2,3)] = 8\r\ntup[(1,2,3)] = 10\r\ntup[(1,2)] = 12\r\nsum1 = 0\r\nfor k in tup: \r\n\tsum1 += tup[k] \r\nprint(len(tup) + sum1)",
+            "option1": "14",
+            "option2": "13",
+            "option3": "22",
+            "option4": "24",
+            "answer": "24"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 59,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "tup1 = (1, 2, 4, 3) \r\ntup2 = (1, 2, 3, 4) \r\nprint(tup1 < tup2)",
+            "option1": "True",
+            "option2": "False",
+            "option3": "Error",
+            "option4": "Unexpected",
+            "answer": "False"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 60,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "tup=(\"Check\")\r\nprint(type(tup))",
+            "option1": "tuple",
+            "option2": "String",
+            "option3": "None",
+            "option4": "Syntax Error",
+            "answer": "String"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 61,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "s = 'geeks' \r\na, b, c, d, e = s \r\nb = c = '*'\r\ns = (a, b, c, d, e) \r\nprint(s)",
+            "option1": "(�g�, �*�, �*�, �k�, �s�)",
+            "option2": "(�g�, �e�, �e�, �k�, �s�)",
+            "option3": "(�geeks�, �*�, �*�)",
+            "option4": "KeyError",
+            "answer": "(�g�, �*�, �*�, �k�, �s�)"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 62,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "tup1 = (1) \r\ntup2 = (3, 4) \r\ntup1 += 5\r\nprint(tup1)",
+            "option1": "TypeError",
+            "option2": "(1,5)",
+            "option3": "1",
+            "option4": "6",
+            "answer": "6"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 63,
+        "fields": {
+            "question": "What is a function in Python?",
+            "code": "",
+            "option1": "A keyword",
+            "option2": "A type of variable",
+            "option3": "An imported library",
+            "option4": "A block of code that performs a specific task.",
+            "answer": "A block of code that performs a specific task."
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 64,
+        "fields": {
+            "question": "What happens when a variable is defined inside a function and you attempt to access it from outside that function's body?",
+            "code": "",
+            "option1": "The variable is accessed normally.",
+            "option2": "The variable is stored in the global namespace.",
+            "option3": "The value returns as 'None'.",
+            "option4": "Python raises a NameError because the variable exists only in the local scope.",
+            "answer": "Python raises a NameError because the variable exists only in the local scope."
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 65,
+        "fields": {
+            "question": "If a function is defined to return a value but does not include a return statement, what will be the result?",
+            "code": "",
+            "option1": "The function will return an error",
+            "option2": "The function will return a default value of 0",
+            "option3": "The function will return None",
+            "option4": "The function will return the last executed statement",
+            "answer": "The function will return None"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 66,
+        "fields": {
+            "question": "Which of the following statements about functions returning other functions is true?",
+            "code": "",
+            "option1": "A function cannot return another function in Python",
+            "option2": "The returned function can access variables from the outer function",
+            "option3": "The returned function must be called immediately",
+            "option4": "The outer function's execution must be completed before returning",
+            "answer": "The returned function can access variables from the outer function"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 67,
+        "fields": {
+            "question": "Which type of argument uses a predefined value when no value is passed during a function call?",
+            "code": "",
+            "option1": "Positional Argument",
+            "option2": "Keyword Argument",
+            "option3": "Default Argument",
+            "option4": "Arbitrary Argument",
+            "answer": "Default Argument"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 68,
+        "fields": {
+            "question": "What is the output of the following program?",
+            "code": "def update_val(x):\r\n    x = x + 10\r\n\r\nnum = 5\r\nupdate_val(num)\r\nprint(num)",
+            "option1": "15",
+            "option2": "None",
+            "option3": "5",
+            "option4": "Error: local variable referenced before assignment",
+            "answer": "5"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 69,
+        "fields": {
+            "question": "What is the purpose of the range function in a for loop?",
+            "code": "",
+            "option1": "To create a list of numbers",
+            "option2": "To define the start and end of the loop",
+            "option3": "To generate a sequence of numbers",
+            "option4": "To specify the step size of the loop",
+            "answer": "To generate a sequence of numbers"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 70,
+        "fields": {
+            "question": "How can you iterate over a string in reverse order using a for loop?",
+            "code": "",
+            "option1": "for char in reversed(string):",
+            "option2": "for char in string[-1::]:",
+            "option3": "for char in string.reverse():",
+            "option4": "Reverse iteration is not possible on strings",
+            "answer": "for char in reversed(string):"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 71,
+        "fields": {
+            "question": "What will the following code output?",
+            "code": "numbers = [1, 2, 3, 4, 5]\r\nfor i in range(len(numbers) - 1, -1, -1):\r\n   print(numbers[4], end=' ')",
+            "option1": "5 4 3 2 1",
+            "option2": "1 2 3 4 5",
+            "option3": "5 5 5 5 5",
+            "option4": "1 3 5",
+            "answer": "5 5 5 5 5"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 72,
+        "fields": {
+            "question": "How can you iterate over a tuple using a for loop?",
+            "code": "",
+            "option1": "for element in tuple:",
+            "option2": "for in in range(len(tuple)):",
+            "option3": "for i, element in enumerate(tuple):",
+            "option4": "for i in tuple",
+            "answer": "for element in tuple:"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 73,
+        "fields": {
+            "question": "What is the difference between a for loop and a while loop?",
+            "code": "",
+            "option1": "For loops iterate over sequences, while while loops run based on a condition.",
+            "option2": "For loops are better than while loop.",
+            "option3": "They are not interchangeable.",
+            "option4": "For loop is faster than while loop.",
+            "answer": "For loops iterate over sequences, while while loops run based on a condition."
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 74,
+        "fields": {
+            "question": "What is the purpose of the continue keyword in a for loop?",
+            "code": "",
+            "option1": "To exit the loop",
+            "option2": "To skip the remaining code and move to the next iteration",
+            "option3": "To restart the loop from the beginning",
+            "option4": "To print the current iteration and continue",
+            "answer": "To skip the remaining code and move to the next iteration"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 75,
+        "fields": {
+            "question": "In Python, what is the scope of a variable declared inside a function?",
+            "code": "",
+            "option1": "Global scope",
+            "option2": "Local scope",
+            "option3": "Module scope",
+            "option4": "Class scope",
+            "answer": "Local scope"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 76,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "x = 10\r\n\r\ndef func():\r\n   x = 5\r\nfunc()\r\nprint(x)",
+            "option1": "10",
+            "option2": "5",
+            "option3": "Error",
+            "option4": "15",
+            "answer": "10"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 77,
+        "fields": {
+            "question": "What is a class in Object Oriented Programming?",
+            "code": "",
+            "option1": "A function",
+            "option2": "A module",
+            "option3": "A code block",
+            "option4": "A blueprint for creating objects",
+            "answer": "A blueprint for creating objects"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 78,
+        "fields": {
+            "question": "What is the primary purpose of multiple inheritance in OOP?",
+            "code": "",
+            "option1": "To create complex class hierarchies",
+            "option2": "To combine attributes from multiple classes",
+            "option3": "To allow a class to inherit from more than one superclass",
+            "option4": "To override methods in multiple classes",
+            "answer": "To allow a class to inherit from more than one superclass"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 79,
+        "fields": {
+            "question": "In OOP, what is an abstract class?",
+            "code": "",
+            "option1": "A class that cannot be instantiated",
+            "option2": "A class that can be instantiated but not inherited",
+            "option3": "A class that defines abstract methods and may have concrete methods",
+            "option4": "A class that cannot have any methods",
+            "answer": "A class that defines abstract methods and may have concrete methods"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 80,
+        "fields": {
+            "question": "In OOP, what is the benefit of using encapsulation?",
+            "code": "",
+            "option1": "Improved code organization",
+            "option2": "Code reusability",
+            "option3": "Enhanced code readability",
+            "option4": "Increased system performance",
+            "answer": "Improved code organization"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 81,
+        "fields": {
+            "question": "Which function is commonly used in a child class to call the constructor of the parent class in Python?",
+            "code": "",
+            "option1": "parent()",
+            "option2": "base()",
+            "option3": "super()",
+            "option4": "inherit()",
+            "answer": "super()"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 82,
+        "fields": {
+            "question": "Which keyword is used to achieve method overloading in Python?",
+            "code": "",
+            "option1": "overload",
+            "option2": "method",
+            "option3": "override",
+            "option4": "Python does not support method overloading",
+            "answer": "Python does not support method overloading"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 84,
+        "fields": {
+            "question": "What is the relationship between the A and B classes?",
+            "code": "class A:\r\n   def __init__(self, x):\r\n       self.x = x\r\n\r\nclass B(A):\r\n   def __init__(self, x, y):\r\n       super().__init__(x)\r\n       self.y = y",
+            "option1": "Composition",
+            "option2": "Inheritance",
+            "option3": "Encapsulation",
+            "option4": "Polymorphism",
+            "answer": "Inheritance"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 85,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "class Test:\r\n    def _init_(self):\r\n        print(self)\r\nTest()",
+            "option1": "Error",
+            "option2": "Blank Space",
+            "option3": "Object reffernce id",
+            "option4": "self",
+            "answer": "Blank Space"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 86,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "class Test:\r\n    def add(self, a):\r\n        return a\r\n\r\n    def add(self, a, b):\r\n        return a + b\r\n\r\nobj = Test()\r\nprint(obj.add(2))",
+            "option1": "2",
+            "option2": "Error",
+            "option3": "0",
+            "option4": "None",
+            "answer": "Error"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 87,
+        "fields": {
+            "question": "Which Method Receives cls as First Argument?",
+            "code": "",
+            "option1": "Instance Method",
+            "option2": "Static Method",
+            "option3": "Class Method",
+            "option4": "Constructor",
+            "answer": "Class Method"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 88,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "funcs = [lambda x: x * i for i in range(4)]\r\n\r\nprint(funcs[2](2))",
+            "option1": "0",
+            "option2": "2",
+            "option3": "4",
+            "option4": "6",
+            "answer": "6"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 89,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "nums = [1, 2, 3, 4]\r\nresult = list(map(lambda x: x * 2, nums))\r\nprint(result)",
+            "option1": "[1, 2, 3, 4]",
+            "option2": "[2,4,6,8]",
+            "option3": "[1, 4, 9, 16]",
+            "option4": "[1,2,3,4,1,2,3,4]",
+            "answer": "[2,4,6,8]"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 90,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "add = lambda a, b: a += b\r\nprint(add(3, 4))",
+            "option1": "7",
+            "option2": "Error",
+            "option3": "11",
+            "option4": "4",
+            "answer": "Error"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 91,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "A=10\r\nB=9\r\nprint( A and B)",
+            "option1": "9",
+            "option2": "10",
+            "option3": "Error",
+            "option4": "8",
+            "answer": "9"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 92,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "from functools import reduce\r\n\r\nnums = {1:\"Jhon\", 2:\"harry\", 3:\"Marry\", 4:\"AA\",2:\"NTR\",4:\"Rocky\"}\r\n\r\nresult = reduce(lambda x, y: x * y, nums)\r\n\r\nprint(result)",
+            "option1": "24",
+            "option2": "48",
+            "option3": "Error",
+            "option4": "8",
+            "answer": "24"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 93,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "class X:\r\n    def show(self):\r\n        print(\"X\")\r\n\r\nclass Y:\r\n    def show(self):\r\n        print(\"Y\")\r\n\r\nfor obj in [X(), Y()]:\r\n    obj.show()",
+            "option1": "X Y",
+            "option2": "Y X",
+            "option3": "Error",
+            "option4": "None",
+            "answer": "X Y"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 94,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "class A:\r\n    def show(self):\r\n        print(\"A\")\r\n\r\nclass B(A):\r\n    def show(self):\r\n        super().show()\r\n        print(\"B\")\r\n\r\nobj = B()\r\nobj.show()",
+            "option1": "A B",
+            "option2": "B A",
+            "option3": "A",
+            "option4": "B",
+            "answer": "A B"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 95,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "class Shape:\r\n    def area(self):\r\n        re=10\r\n\r\nclass Circle(Shape):\r\n    def area(self):\r\n        return 100\r\n\r\ns = Shape()\r\nc = Circle()\r\n\r\nfor obj in [s, c]:\r\n    print(obj.area())",
+            "option1": "None 100",
+            "option2": "100 0",
+            "option3": "0 100",
+            "option4": "100 None",
+            "answer": "None 100"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 96,
+        "fields": {
+            "question": "Which module is used to implement abstraction in Python?",
+            "code": "",
+            "option1": "os",
+            "option2": "abc",
+            "option3": "sys",
+            "option4": "math",
+            "answer": "abc"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 97,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "class A:\r\n    pass\r\n\r\nclass B(A):\r\n    def show(self):\r\n        print(\"B\")\r\n\r\nclass C(A):\r\n    def show(self):\r\n        print(\"C\")\r\n\r\nclass D(B, C):\r\n    pass",
+            "option1": "B",
+            "option2": "C",
+            "option3": "B C",
+            "option4": "C B",
+            "answer": "B"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 98,
+        "fields": {
+            "question": "What is the first parameter of a class method?",
+            "code": "",
+            "option1": "self",
+            "option2": "obj",
+            "option3": "cls",
+            "option4": "class",
+            "answer": "cls"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 99,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "try:\r\n    print(\"Hello\")\r\nexcept:\r\n    print(\"Error\")\r\nfinally:\r\n    print(\"Done\")",
+            "option1": "Hello",
+            "option2": "Hello Done",
+            "option3": "Error",
+            "option4": "Done",
+            "answer": "Hello Done"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 100,
+        "fields": {
+            "question": "What is the output of the following code?",
+            "code": "try:\r\n    print(\"A\")\r\n    r=10/0\r\nexcept:\r\n    print(\"B\")\r\nfinally:\r\n    print(\"C\")",
+            "option1": "A B C",
+            "option2": "B C",
+            "option3": "B",
+            "option4": "ZeroDivisionError",
+            "answer": "A B C"
+        }
+    },
+    {
+        "model": "hackthon_app.mcq",
+        "pk": 101,
+        "fields": {
+            "question": "Which decorator is used for a static method?",
+            "code": "",
+            "option1": "@classmethod",
+            "option2": "@staticmethod",
+            "option3": "@property",
+            "option4": "@abstractmethod",
+            "answer": "@staticmethod"
+        }
+    }
+]

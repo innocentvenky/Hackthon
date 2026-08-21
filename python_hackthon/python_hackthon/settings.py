@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,9 +33,10 @@ CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com","http://127.0.0.1:8000"]
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
+    "python_hackthon.apps.MongoAdminConfig",
+    "python_hackthon.apps.MongoAuthConfig",
+    "python_hackthon.apps.MongoContentTypesConfig",
+    "django_mongodb_backend",
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -75,13 +76,16 @@ WSGI_APPLICATION = 'python_hackthon.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
+load_dotenv(BASE_DIR / ".env")
+MONGODB_USERNAME=os.getenv("MONGODB_USERNAME")
+MONGODB_PASSWORD=os.getenv("MONGODB_PASSWORD")
 DATABASES = {
-    "default": dj_database_url.parse(
-        "postgresql://hackathon_vsml_user:rnGX7T0hO00wN4OYTQKhznhWSMql4cE8@dpg-d92vanmgvqtc739lkpi0-a.singapore-postgres.render.com/hackathon_vsml",
-        conn_max_age=600,
-        ssl_require=False,
-    )
+    "default": {
+        "ENGINE": "django_mongodb_backend",
+        "NAME": "Hackthon",
+        "HOST": f"mongodb+srv://{MONGODB_USERNAME}:"
+        f"{MONGODB_PASSWORD}@hackathon.kubsflm.mongodb.net/",
+    }
 }
 
 
