@@ -79,12 +79,12 @@ WSGI_APPLICATION = 'python_hackthon.wsgi.application'
 load_dotenv(BASE_DIR / ".env")
 MONGODB_USERNAME=os.getenv("MONGODB_USERNAME")
 MONGODB_PASSWORD=os.getenv("MONGODB_PASSWORD")
+MONGODB_URL=os.getenv("MONGODB_URL")
 DATABASES = {
     "default": {
         "ENGINE": "django_mongodb_backend",
         "NAME": "Hackthon",
-        "HOST": f"mongodb+srv://{MONGODB_USERNAME}:"
-        f"{MONGODB_PASSWORD}@hackathon.kubsflm.mongodb.net/",
+        "HOST": MONGODB_URL,
     }
 }
 
