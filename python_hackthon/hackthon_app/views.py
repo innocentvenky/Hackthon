@@ -109,13 +109,13 @@ def mcq_test(request):
                     ids=[]
                     start=0
                     end=4
-                    for x in range(25):
+                    for x in range(50):
                             temp=id[start:end]
                             rand=random.choice(temp)
                             ids.append(rand)
                             start=end
                             end +=4
-                    request.session['mcq_ids'] = ids[:25]
+                    request.session['mcq_ids'] = ids[:50]
 
                 ids = request.session['mcq_ids']
 
