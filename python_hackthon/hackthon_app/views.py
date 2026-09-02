@@ -98,7 +98,7 @@ def mcq_test(request):
         user=User.objects.get(email=email)
         remaining_time=max(0,int((timezone.localtime(Test.objects.get(email=user).end_time)-timezone.now()).total_seconds()))
         request.session['remaining_time'] = remaining_time
-        request.session.set_expiry(remaining_time)
+        
         if user.mcq_test:
             if request.session.get('user_email')==None:
                 messages.error(request, 'Please login to access the test.')

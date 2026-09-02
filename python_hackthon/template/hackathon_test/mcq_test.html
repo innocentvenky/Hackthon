@@ -429,11 +429,11 @@ function closeModal(event) {
 
 
 
-// =====================================
-// BACKEND BASED EXAM TIMER
-// =====================================
 
-const examEndTime = new Date("{{ end_time|date:'c' }}").getTime();
+/* =====================================
+   EXAM TIMER + AUTO SUBMIT
+===================================== */
+let remainingSeconds = Number("{{ remaining_time }}");
 
 let timerInterval = null;
 let examSubmitted = false;
@@ -447,35 +447,38 @@ function startTimer() {
         return;
     }
 
+    console.log("Remaining time:", remainingSeconds);
+
+    
     function updateTimer() {
 
-        const remaining = examEndTime - Date.now();
-
-        // Time expired
-        if (remaining <= 0) {
+        // TIME EXPIRED
+        if (remainingSeconds <= 0) {
 
             clearInterval(timerInterval);
 
             timerElement.textContent = "00:00";
 
+            console.log("TIME EXPIRED");
+
             if (!examSubmitted) {
-                examSubmitted = true;
-
-                alert("Time is over. Your test will be submitted automatically.");
-
+              console.log("AUTO SUBMIT STARTED");
                 submitTest();
+               
+
+                
             }
 
             return;
         }
 
-        const totalSeconds = Math.floor(remaining / 1000);
-
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = totalSeconds % 60;
+        const minutes = Math.floor(remainingSeconds / 60);
+        const seconds = remainingSeconds % 60;
 
         timerElement.textContent =
             `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+        remainingSeconds--;
     }
 
     updateTimer();
@@ -483,14 +486,37 @@ function startTimer() {
     timerInterval = setInterval(updateTimer, 1000);
 }
 
+function submitTest() {
+  if (examSubmitted) {
+        console.warn("submitTest() called but exam already submitted");
+        return;
+    }
+    examSubmitted = true;
+    console.log("submitTest() CALLED");
 
-function submitTest()
-{
- 
+    const form = document.getElementById("examForm");
     const hidden = document.getElementById("hiddenInputs");
+
+    if (!form) {
+        console.error("examForm not found!");
+        return;
+    }
+    
+    if (!hidden) {
+        console.error("hiddenInputs not found!");
+        return;
+    }
+
+    // Prevent duplicate submission
+    if (examSubmitted === true && form.dataset.submitted === "true") {
+        return;
+    }
+
+    form.dataset.submitted = "true";
+
     hidden.innerHTML = "";
 
-    questions.forEach((q,index)=>{
+    questions.forEach((q, index) => {
 
         let value = "";
 
@@ -498,24 +524,20 @@ function submitTest()
             value = q.options[answers[index]];
         }
 
-        console.log(
-            "ID:", q.id,
-            "Answer Index:", answers[index],
-            "Value:", value
-        );
+        const input = document.createElement("input");
 
-        hidden.innerHTML += `
-        <input
-            type="hidden"
-            name="question_${q.id}"
-            value="${value}">
-        `;
+        input.type = "hidden";
+        input.name = `question_${q.id}`;
+        input.value = value;
+
+        hidden.appendChild(input);
     });
 
-    document.forms[0].submit(); 
+    console.log("Submitting exam form...");
+
+    // IMPORTANT
+    HTMLFormElement.prototype.submit.call(form);
 }
-
-
 
 function autoSubmitExam() {
 
